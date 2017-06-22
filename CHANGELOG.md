@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## [1.0.1](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.0.1)
+## [1.1.0](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.1.0)
 Released on 2017-06-22.
 
 #### Updated
