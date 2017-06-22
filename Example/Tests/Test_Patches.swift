@@ -1,5 +1,5 @@
 //
-//  Test_Patches.swift
+//  Test_Substitutiones.swift
 //  EasyDi
 //
 //  Created by Andrey Zarembo on 20.05.17.
@@ -12,31 +12,31 @@ import UIKit
 import XCTest
 import EasyDi
 
-protocol ITestPatchObject {
+protocol ITestSubstitutionObject {
     var intParameter: Int { get }
-    var testChild: ChildTestPatchObject? { get }
+    var testChild: ChildTestSubstitutionObject? { get }
 }
 
-class ChildTestPatchObject {
-    var parent: ITestPatchObject?
+class ChildTestSubstitutionObject {
+    var parent: ITestSubstitutionObject?
 }
 
-class Test_Patches: XCTestCase {
+class Test_Substitutions: XCTestCase {
     
     
     
-    class TestObject: NSObject, ITestPatchObject {
+    class TestObject: NSObject, ITestSubstitutionObject {
         @objc var intParameter: Int = 0
-        var testChild: ChildTestPatchObject?
+        var testChild: ChildTestSubstitutionObject?
     }
-    class TestObject2: NSObject, ITestPatchObject {
+    class TestObject2: NSObject, ITestSubstitutionObject {
         @objc var intParameter: Int = 0
-        var testChild: ChildTestPatchObject?
+        var testChild: ChildTestSubstitutionObject?
     }
     
     class TestAssembly: Assembly {
         
-        var testObject: ITestPatchObject {
+        var testObject: ITestSubstitutionObject {
             return define(init: TestObject()) {
                 $0.intParameter = 10
                 $0.testChild = self.childTestObject
@@ -47,50 +47,50 @@ class Test_Patches: XCTestCase {
             return define(init: Int(20))
         }
         
-        var childTestObject: ChildTestPatchObject {
-            return define(init: ChildTestPatchObject()) {
+        var childTestObject: ChildTestSubstitutionObject {
+            return define(init: ChildTestSubstitutionObject()) {
                 $0.parent = self.testObject
             }
         }
     }
     
-    func testPatchWithSimpleObject() {
+    func testSubstitutionWithSimpleObject() {
         
         let testAssembly = TestAssembly.instance()
-        testAssembly.addPatch(for: "testObject") { ()->TestObject in
+        testAssembly.addSubstitution(for: "testObject") { ()->TestObject in
             let result = TestObject()
             result.intParameter = 30
             return result
         }
         
-        let patchedObject = testAssembly.testObject
-        XCTAssertEqual(patchedObject.intParameter, 30)
-        XCTAssertTrue(patchedObject is TestObject)
+        let SubstitutionedObject = testAssembly.testObject
+        XCTAssertEqual(SubstitutionedObject.intParameter, 30)
+        XCTAssertTrue(SubstitutionedObject is TestObject)
         
-        testAssembly.removePatch(for: "testObject")
+        testAssembly.removeSubstitution(for: "testObject")
         let testObject = testAssembly.testObject
-        XCTAssertEqual(patchedObject.intParameter, 30)
+        XCTAssertEqual(SubstitutionedObject.intParameter, 30)
         XCTAssertTrue(testObject is TestObject)
     }
     
-    func testPatchWithDefinition() {
+    func testSubstitutionWithDefinition() {
         
         let testAssembly = TestAssembly.instance()
-        testAssembly.addPatch(for: "testObject") {
+        testAssembly.addSubstitution(for: "testObject") {
             return testAssembly.define(init: TestObject2()) { testObj in
                 testObj.intParameter = testAssembly.testInteger
                 testObj.testChild = testAssembly.childTestObject
-            } as ITestPatchObject
+            } as ITestSubstitutionObject
         }
         
-        let patchedObject = testAssembly.testObject
-        XCTAssertEqual(patchedObject.intParameter, 20)
-        XCTAssertTrue(patchedObject is TestObject2)
-        XCTAssertNotNil(patchedObject.testChild)
-        XCTAssertNotNil(patchedObject.testChild?.parent)
-        XCTAssertTrue((patchedObject as? NSObject) == (patchedObject.testChild?.parent as! NSObject?))
+        let SubstitutionedObject = testAssembly.testObject
+        XCTAssertEqual(SubstitutionedObject.intParameter, 20)
+        XCTAssertTrue(SubstitutionedObject is TestObject2)
+        XCTAssertNotNil(SubstitutionedObject.testChild)
+        XCTAssertNotNil(SubstitutionedObject.testChild?.parent)
+        XCTAssertTrue((SubstitutionedObject as? NSObject) == (SubstitutionedObject.testChild?.parent as! NSObject?))
         
-        testAssembly.removePatch(for: "testObject")
+        testAssembly.removeSubstitution(for: "testObject")
         let testObject = testAssembly.testObject
         XCTAssertEqual(testObject.intParameter, 10)
         XCTAssertTrue(testObject is TestObject)

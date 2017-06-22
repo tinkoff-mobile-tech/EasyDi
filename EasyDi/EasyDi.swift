@@ -8,7 +8,8 @@ import Foundation
 public typealias InjectableObject = Any
 
 public final class DIContext {
-
+    
+    fileprivate lazy var syncQueue:DispatchQueue = Dispatch.DispatchQueue(label: "", qos: .userInteractive)
     static var defaultInstance = DIContext()
     fileprivate var assemblies:[String:Assembly] = [:]
 
@@ -25,24 +26,22 @@ public final class DIContext {
 
     public func instance(for assemblyType: Assembly.Type) -> Assembly {
 
-        let assemblyClassName:String = NSStringFromClass(assemblyType)
-
-        objc_sync_enter(self)
-        if self.assemblies[assemblyClassName] == nil {
-            self.assemblies[assemblyClassName] = assemblyType.newInstance()
+        let assemblyClassName:String = String(reflecting: assemblyType)
+        if let instance = self.assemblies[assemblyClassName] {
+            return instance
         }
-        objc_sync_exit(self)
-
-        guard let instance = self.assemblies[assemblyClassName] else {
-            fatalError("Failed to instantiate assembly for \(assemblyClassName) in context: \(self)")
+        
+        var instance:Assembly? = nil
+        syncQueue.sync {
+            instance = assemblyType.newInstance()
+            instance?.context = self
+            self.assemblies[assemblyClassName] = instance
         }
-        instance.context = self
-        return instance
+        return instance!
     }
 }
 
 internal protocol AssemblyInternal {
-
     static func newInstance() -> Self
 }
 
@@ -75,27 +74,25 @@ open class Assembly: AssemblyInternal {
 
     var singletons:[String: InjectableObject] = [:]
     var definitions:[String: DefinitionInternal] = [:]
-    internal var patches:[String: UntypedPatchClosure] = [:]
+    internal var substitutions:[String: UntypedPatchClosure] = [:]
 
-    public func addPatch<ObjectType: InjectableObject>(for definitionKey: String, with patchClosure: @escaping PatchClosure<ObjectType>) {
-        self.patches[definitionKey] = patchClosure
+    public func addSubstitution<ObjectType: InjectableObject>(for definitionKey: String, with substitutionClosure: @escaping SubstitutionClosure<ObjectType>) {
+        self.substitutions[definitionKey] = substitutionClosure
     }
 
-    public func removePatch(for definitionKey: String) {
-        self.patches[definitionKey] = nil
+    public func removeSubstitution(for definitionKey: String) {
+        self.substitutions[definitionKey] = nil
     }
 
     public func definePlaceholder<ObjectType: InjectableObject>(key: String = #function) -> ObjectType {
         return self.define(key: key)
     }
+    
+    public func define<ObjectType: InjectableObject>(key: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, init initClosure: @autoclosure @escaping () -> ObjectType, inject injectClosure: @escaping (_ object: ObjectType) -> Void = { _ in } ) {
+        let _:ObjectType = self.define(key: key, definitionKey: definitionKey, scope: scope, init: initClosure, inject: injectClosure)
+    }
 
-    public func define<ObjectType: InjectableObject, ResultType: InjectableObject>(
-        key: String = #function,
-        definitionKey: String = #function,
-        scope: Scope = .objectGraph,
-        init initClosure: @autoclosure @escaping () -> ObjectType,
-        inject injectClosure: @escaping (_ object: ObjectType) -> Void = { _ in }
-        ) -> ResultType {
+    public func define<ObjectType: InjectableObject, ResultType: InjectableObject>(key: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, init initClosure: @autoclosure @escaping () -> ObjectType, inject injectClosure: @escaping (_ object: ObjectType) -> Void = { _ in } ) -> ResultType {
 
         return self.define(key: key, definitionKey: definitionKey, scope: scope) { (definition:Definition<ResultType>) in
             definition.initClosure = {
@@ -111,15 +108,16 @@ open class Assembly: AssemblyInternal {
         }
     }
 
-    fileprivate func define<ObjectType: InjectableObject>(key: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, initClosure: DefinitionClosure<ObjectType>? = nil) -> ObjectType {
-
+    fileprivate func define<ObjectType: InjectableObject>(key simpleKey: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, initClosure: DefinitionClosure<ObjectType>? = nil) -> ObjectType {
+        
+        let key: String = String(reflecting: self).replacingOccurrences(of: ".", with: "")+simpleKey
         var result:ObjectType
 
         guard let context = self.context else {
             fatalError("Assembly has no context to work in")
         }
 
-        if let patchClosure = self.patches[definitionKey], let object = patchClosure() as? ObjectType {
+        if let patchClosure = self.substitutions[definitionKey], let object = patchClosure() as? ObjectType {
             return object
         } else if scope == .lazySingleton, let singleton = self.singletons[key] as? ObjectType {
             result = singleton
@@ -192,7 +190,7 @@ public final class Definition<ObjectType: InjectableObject>: DefinitionInternal 
 public typealias ObjectInitClosure<ObjectType: InjectableObject> = () -> ObjectType
 public typealias ObjectInjectClosure<ObjectType: InjectableObject> = (_ object: ObjectType) -> Void
 public typealias DefinitionClosure<ObjectType: InjectableObject> = (_ definition: Definition<ObjectType>) -> Void
-public typealias PatchClosure<ObjectType: InjectableObject> = () -> ObjectType
+public typealias SubstitutionClosure<ObjectType: InjectableObject> = () -> ObjectType
 internal typealias UntypedPatchClosure = () -> InjectableObject
 
 func castAssemblyInstance<T>(_ instance: Any, asType type: T.Type) -> T {

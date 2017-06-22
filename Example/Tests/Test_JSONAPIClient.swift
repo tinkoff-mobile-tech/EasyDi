@@ -27,7 +27,7 @@ class Test_JSONAPIClient: XCTestCase {
         
         let diContext = DIContext()
         let serviceAssembly = ServiceAssembly.instance(from: diContext)
-        serviceAssembly.addPatch(for: "session") {
+        serviceAssembly.addSubstitution(for: "session") {
             return SuccessURLSessionMock()
         }
         

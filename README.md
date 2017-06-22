@@ -297,7 +297,7 @@ There results that two graphs of objects give 4 copies of object A
 
 It is important to understand that this is the entry point to the graph and it is not necessary to make prototypes from other dependencies. If you combine prototypes in a loop, then the stack will be overflow and the application will fall.
 
-## Patches and contexts for tests (A complex example)
+## Substitutions and contexts for tests (A complex example)
 
 When testing, it is important to maintain test independence. In EasyDi, this is provided by Assemblies contexts. For example, integration tests, where singletons are used. They are used like this:
 
@@ -333,7 +333,7 @@ class MyAssembly: Assembly {
 }
 
 let myAssembly = MyAssembly.instance()
-myAssembly.addPatch(for: "theObject") { () -> ITheObject in
+myAssembly.addSubstitution(for: "theObject") { () -> ITheObject in
   let result = FakeTheObject()
   result.intParameter = 30
   return result
@@ -366,11 +366,11 @@ let FeatureABTestAssembly: Assembly {
 
   func activate(firstTest: Bool) {
     if (firstTest) {
-      self.featureAssembly.addPatch(for: "feature") {
+      self.featureAssembly.addSubstitution(for: "feature") {
         return self.feature
       }
     } else {
-      self.featureAssembly.removePatch(for: "feature")
+      self.featureAssembly.removeSubstitution(for: "feature")
     }
   }
 }
