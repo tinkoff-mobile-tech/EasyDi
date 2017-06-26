@@ -155,6 +155,7 @@ open class Assembly: AssemblyInternal {
                 context.objectGraphStackDepth -= 1
             }
             context.objectGraphStack.removeAll()
+            definitions.removeAll()
         }
 
         if self.singletons[key] == nil, scope == .lazySingleton {

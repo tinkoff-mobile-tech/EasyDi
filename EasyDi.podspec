@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'EasyDi'
-  s.version          = '1.1.0'
+  s.version          = '1.1.1'
   s.summary          = 'Effective DI library for rapid development in 200 lines of code'
 
 # This description is used to generate tags and improve search results.
