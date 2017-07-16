@@ -68,7 +68,7 @@ class Test_Injection: XCTestCase {
         class TestAssembly: Assembly {
             
             func inject(into testObject: TestObject) {
-                let _:TestObject = define(key: "testObject",init: testObject) {
+                defineInjection(key: "testObject", into: testObject) {
                     $0.intParameter = 10
                     $0.stringParamter = "TestString"
                     $0.arrayParameter = ["a","b","c"]
@@ -77,7 +77,7 @@ class Test_Injection: XCTestCase {
             }
             
             var testObject: TestObject {
-                return define(key: "testObject", init: TestObject())
+                return definePlaceholder()
             }
         }
         

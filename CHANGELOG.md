@@ -2,10 +2,25 @@
 All notable changes to this project will be documented in this file.
 
 #### 1.x Releases
+- `1.2.x` Releases - [1.2.0](#120)
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111)
 - `1.0.x` Releases - [1.0.0](#100)
 
 ---
+
+## [1.2.0](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.2.0)
+Released on 2017-07-17
+
+#### Added
+- Injections into swift structures
+- Carthage support
+
+#### Updated
+- Renamed `define(init: ...)` without return value to `defineInjection(into: )`
+
+#### Fixed
+- Fixed bug with queue lock in assembly context
+
 
 ## [1.1.1](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.1.1)
 Released on 2017-06-26
