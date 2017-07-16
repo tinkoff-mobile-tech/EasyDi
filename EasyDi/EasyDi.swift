@@ -85,30 +85,23 @@ open class Assembly: AssemblyInternal {
     }
 
     public func definePlaceholder<ObjectType: InjectableObject>(key: String = #function) -> ObjectType {
-        return self.define(key: key)
+        let closure: DefinitionClosure<ObjectType>? = nil
+        return self.define(key: key, initClosure: closure)
     }
     
-    public func define<ObjectType: InjectableObject>(key: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, init initClosure: @autoclosure @escaping () -> ObjectType, inject injectClosure: @escaping (_ object: ObjectType) -> Void = { _ in } ) {
-        let _:ObjectType = self.define(key: key, definitionKey: definitionKey, scope: scope, init: initClosure, inject: injectClosure)
+    public func defineInjection<ObjectType>(key: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, into initClosure: @autoclosure @escaping () -> ObjectType, inject injectClosure: @escaping ObjectInjectClosure<ObjectType> = { _ in } ) {
+        let _: ObjectType = self.define(key: key, definitionKey: definitionKey, scope: scope, init: initClosure, inject: injectClosure)
     }
+    
+    public func define<ObjectType, ResultType: InjectableObject>(key: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, init initClosure: @autoclosure @escaping () -> ObjectType, inject injectClosure: @escaping ObjectInjectClosure<ObjectType> = { _ in } ) -> ResultType {
 
-    public func define<ObjectType: InjectableObject, ResultType: InjectableObject>(key: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, init initClosure: @autoclosure @escaping () -> ObjectType, inject injectClosure: @escaping (_ object: ObjectType) -> Void = { _ in } ) -> ResultType {
-
-        return self.define(key: key, definitionKey: definitionKey, scope: scope) { (definition:Definition<ResultType>) in
-            definition.initClosure = {
-                let objectFromInit = initClosure()
-                guard let resultObject = objectFromInit as? ResultType else {
-                    fatalError("Object of type \(objectFromInit) can't be converted to \(ResultType.self)")
-                }
-                return resultObject
-            }
-            definition.injectClosure = { object in
-                injectClosure(object as! ObjectType)
-            }
+        return self.define(key: key, definitionKey: definitionKey, scope: scope) { (definition:Definition<ObjectType>) in
+            definition.initClosure = initClosure
+            definition.injectClosure = injectClosure
         }
     }
 
-    fileprivate func define<ObjectType: InjectableObject>(key simpleKey: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, initClosure: DefinitionClosure<ObjectType>? = nil) -> ObjectType {
+    fileprivate func define<ObjectType: InjectableObject, ResultType: InjectableObject>(key simpleKey: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, initClosure: DefinitionClosure<ObjectType>? = nil) -> ResultType {
         
         let key: String = String(reflecting: self).replacingOccurrences(of: ".", with: "")+simpleKey
         var result:ObjectType
@@ -116,35 +109,35 @@ open class Assembly: AssemblyInternal {
         guard let context = self.context else {
             fatalError("Assembly has no context to work in")
         }
-
-        if let patchClosure = self.substitutions[definitionKey], let object = patchClosure() as? ObjectType {
+        
+        if let substitutionClosure = self.substitutions[definitionKey], let object = substitutionClosure() as? ResultType {
             return object
         } else if scope == .lazySingleton, let singleton = self.singletons[key] as? ObjectType {
             result = singleton
         } else if let objectFromStack = context.objectGraphStack[key] as? ObjectType, scope != .prototype {
             result = objectFromStack
-        } else if let definition = self.definitions[definitionKey], let object = definition.initObject() as? ObjectType {
+        } else if let definition = self.definitions[definitionKey], var object = definition.initObject() {
 
-            result = object
+            result = object as! ObjectType
             context.objectGraphStack[key] = result
             self.context.zeroDepthInjectionClosures.append {
-                definition.injectObject(object: object)
+                definition.injectObject(object: &object)
             }
         } else {
 
             let definition = Definition<ObjectType>()
             initClosure?(definition)
             self.definitions[definitionKey] = definition
-
-            guard let object = definition.initObject() as? ObjectType else {
-                fatalError("Invalid object type")
+            
+            guard var object = definition.initObject() else {
+                fatalError("Failed to initialize object")
             }
             context.objectGraphStack[key] = object
             context.objectGraphStackDepth += 1
-            definition.injectObject(object: object)
+            definition.injectObject(object: &object)
             context.objectGraphStackDepth -= 1
 
-            result = object
+            result = object as! ObjectType
         }
 
         if context.objectGraphStackDepth == 0 {
@@ -161,15 +154,18 @@ open class Assembly: AssemblyInternal {
         if self.singletons[key] == nil, scope == .lazySingleton {
             self.singletons[key] = result
         }
-
-        return result
+        
+        guard let finalResult = result as? ResultType else {
+            fatalError("Failed to build result object. Expected \(ResultType.self) received: \(result)")
+        }
+        return finalResult
     }
 }
 
 internal protocol DefinitionInternal {
 
     func initObject() -> InjectableObject?
-    func injectObject(object: InjectableObject) -> Void
+    func injectObject(object: inout InjectableObject) -> Void
 }
 
 public final class Definition<ObjectType: InjectableObject>: DefinitionInternal {
@@ -180,16 +176,17 @@ public final class Definition<ObjectType: InjectableObject>: DefinitionInternal 
     func initObject() -> InjectableObject? {
         return self.initClosure?()
     }
-    func injectObject(object: InjectableObject) -> Void {
-        guard let typedObject = object as? ObjectType else {
+    func injectObject(object: inout InjectableObject) -> Void {
+        guard var injectableObject = object as? ObjectType else {
             return
         }
-        self.injectClosure?(typedObject)
+        self.injectClosure?(&injectableObject)
+        object = injectableObject
     }
 }
 
 public typealias ObjectInitClosure<ObjectType: InjectableObject> = () -> ObjectType
-public typealias ObjectInjectClosure<ObjectType: InjectableObject> = (_ object: ObjectType) -> Void
+public typealias ObjectInjectClosure<ObjectType: InjectableObject> = (_ object: inout ObjectType) -> Void
 public typealias DefinitionClosure<ObjectType: InjectableObject> = (_ definition: Definition<ObjectType>) -> Void
 public typealias SubstitutionClosure<ObjectType: InjectableObject> = () -> ObjectType
 internal typealias UntypedPatchClosure = () -> InjectableObject
