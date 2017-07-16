@@ -9,7 +9,7 @@ public typealias InjectableObject = Any
 
 public final class DIContext {
     
-    fileprivate lazy var syncQueue:DispatchQueue = Dispatch.DispatchQueue(label: "", qos: .userInteractive)
+    fileprivate lazy var syncQueue:DispatchQueue = Dispatch.DispatchQueue(label: "EasyDi Context Sync Queue", qos: .userInteractive)
     static var defaultInstance = DIContext()
     fileprivate var assemblies:[String:Assembly] = [:]
 
@@ -25,17 +25,19 @@ public final class DIContext {
     }
 
     public func instance(for assemblyType: Assembly.Type) -> Assembly {
-
-        let assemblyClassName:String = String(reflecting: assemblyType)
-        if let instance = self.assemblies[assemblyClassName] {
-            return instance
-        }
         
-        var instance:Assembly? = nil
+        var instance: Assembly? = nil
         syncQueue.sync {
-            instance = assemblyType.newInstance()
-            instance?.context = self
-            self.assemblies[assemblyClassName] = instance
+            let assemblyClassName:String = String(reflecting: assemblyType)
+            if let existingInstance = self.assemblies[assemblyClassName] {
+                instance = existingInstance
+            }
+            else {
+                let newInstance = assemblyType.newInstance()
+                newInstance.context = self
+                self.assemblies[assemblyClassName] = newInstance
+                instance = newInstance
+            }
         }
         return instance!
     }
@@ -53,9 +55,6 @@ public enum Scope {
 
 public typealias UntypedPatchInitObjectClosure = () -> InjectableObject
 public typealias InitObjectPatchClosure<ObjectType: InjectableObject> = () -> ObjectType
-
-public typealias UntypedPatchInjectObjectClosure = () -> InjectableObject
-public typealias InjectObjectPatchClosure<ObjectType: InjectableObject> = () -> ObjectType
 
 open class Assembly: AssemblyInternal {
 

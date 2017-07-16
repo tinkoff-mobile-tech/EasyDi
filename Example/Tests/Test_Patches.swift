@@ -56,7 +56,8 @@ class Test_Substitutions: XCTestCase {
     
     func testSubstitutionWithSimpleObject() {
         
-        let testAssembly = TestAssembly.instance()
+        let context = DIContext()
+        let testAssembly = TestAssembly.instance(from: context)
         testAssembly.addSubstitution(for: "testObject") { ()->TestObject in
             let result = TestObject()
             result.intParameter = 30
@@ -75,7 +76,8 @@ class Test_Substitutions: XCTestCase {
     
     func testSubstitutionWithDefinition() {
         
-        let testAssembly = TestAssembly.instance()
+        let context = DIContext()
+        let testAssembly = TestAssembly.instance(from: context)
         testAssembly.addSubstitution(for: "testObject") {
             return testAssembly.define(init: TestObject2()) { testObj in
                 testObj.intParameter = testAssembly.testInteger
