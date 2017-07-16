@@ -1,5 +1,12 @@
 # EasyDi
 
+[![CI Status](https://travis-ci.org/AndreyZarembo/EasyDi.svg?branch=master](https://travis-ci.org/AndreyZarembo/EasyDi)
+[![Version](https://img.shields.io/cocoapods/v/EasyDi.svg?style=flat)](http://cocoapods.org/pods/EasyDi)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![License](https://img.shields.io/cocoapods/l/EasyDi.svg?style=flat)](http://cocoapods.org/pods/EasyDi)
+[![Platform](https://img.shields.io/cocoapods/p/EasyDi.svg?style=flat)](http://cocoapods.org/pods/EasyDi)
+[![Swift Version](https://img.shields.io/badge/Swift-3.0--4.0-F16D39.svg?style=flat)](https://developer.apple.com/swift)
+
 ![](easy_di_logo.png)
 
 Effective DI library for rapid development in 200 lines of code.
@@ -104,7 +111,7 @@ class PurchaseService {
   var baseURL: URL?
   var apiPath = "/purchase/"
   var apiClient: IAPIClient?
-  
+
   func perform(with objectId: String, then completion: (_ success: Bool) -> Void) {
 
     guard let apiClient = self.apiClient, let url = self.baseURL else {
@@ -127,7 +134,7 @@ class OrderViewController {
 
   var purchaseService: IPurchaseService?
   var purchaseId: String?
-  
+
   func didClickShopButton(_ sender: UIButton?) {
 
     guard let purchaseService = self.purchaseService, let purchaseId = self.purchaseId else {
@@ -145,7 +152,7 @@ Service dependencies:
 
 ```swift
 class ServiceAssembly: Assembly {
-  
+
   var purchaseService: IPurchaseService {
     return define(init: PurchaseService()) {
       $0.baseURL = self.apiV1BaseURL
@@ -167,7 +174,7 @@ And this is how we inject the service in the controller:
 
 ```swift
 var orderViewAssembly: Assembly {
-  
+
   var serviceAssembly: ServiceAssembly = self.context.assembly()
 
   func inject(into controller: OrderViewController, purchaseId: String) {
@@ -346,7 +353,7 @@ The same mechanism can be used for a / b testing in the application. For example
 
 ```swift
 let FeatureAssembly: Assembly {
-  
+
   var feature: IFeature {
     return define(init: Feature) {
       ...
