@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "0900"
-   version = "1.3">
+   version = "1.8">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -16,7 +16,21 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C36D9F4F1F1C0DC9009FD9AD"
                BuildableName = "EasyDi.framework"
-               BlueprintName = "EasyDi"
+               BlueprintName = "EasyDi-iOS"
+               ReferencedContainer = "container:EasyDi.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C3614B3A1F1C8AE900B1F4A1"
+               BuildableName = "EasyDi-iOS-Tests.xctest"
+               BlueprintName = "EasyDi-iOS-Tests"
                ReferencedContainer = "container:EasyDi.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,7 +43,26 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C3614B3A1F1C8AE900B1F4A1"
+               BuildableName = "EasyDi-iOS-Tests.xctest"
+               BlueprintName = "EasyDi-iOS-Tests"
+               ReferencedContainer = "container:EasyDi.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C36D9F4F1F1C0DC9009FD9AD"
+            BuildableName = "EasyDi.framework"
+            BlueprintName = "EasyDi-iOS"
+            ReferencedContainer = "container:EasyDi.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -37,7 +70,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -49,7 +81,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C36D9F4F1F1C0DC9009FD9AD"
             BuildableName = "EasyDi.framework"
-            BlueprintName = "EasyDi"
+            BlueprintName = "EasyDi-iOS"
             ReferencedContainer = "container:EasyDi.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -67,7 +99,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C36D9F4F1F1C0DC9009FD9AD"
             BuildableName = "EasyDi.framework"
-            BlueprintName = "EasyDi"
+            BlueprintName = "EasyDi-iOS"
             ReferencedContainer = "container:EasyDi.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

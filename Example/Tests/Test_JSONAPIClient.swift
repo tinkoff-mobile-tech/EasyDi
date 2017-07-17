@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import XCTest
 import EasyDi
-@testable import EasyDi_Example
+@testable import iOS_Example
 
 class Test_JSONAPIClient: XCTestCase {
 

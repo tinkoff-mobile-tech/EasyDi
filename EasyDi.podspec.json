@@ -19,5 +19,5 @@
   "platforms": {
     "ios": "8.0"
   },
-  "source_files": "EasyDi/**/*.swift"
+  "source_files": "Sources/**/*.swift"
 }
