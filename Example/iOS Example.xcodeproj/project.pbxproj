@@ -61,6 +61,13 @@
 			remoteGlobalIDString = C3614ACC1F1C7E8500B1F4A1;
 			remoteInfo = "iOS Example";
 		};
+		C3614B611F1D1D8400B1F4A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3614AE21F1C7EB700B1F4A1 /* EasyDi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C3614B3B1F1C8AE900B1F4A1;
+			remoteInfo = "EasyDi-iOS-Tests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -147,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				C3614AE71F1C7EB700B1F4A1 /* EasyDi.framework */,
+				C3614B621F1D1D8400B1F4A1 /* EasyDi-iOS-Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -336,6 +344,13 @@
 			fileType = wrapper.framework;
 			path = EasyDi.framework;
 			remoteRef = C3614AE61F1C7EB700B1F4A1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C3614B621F1D1D8400B1F4A1 /* EasyDi-iOS-Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "EasyDi-iOS-Tests.xctest";
+			remoteRef = C3614B611F1D1D8400B1F4A1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -612,6 +627,7 @@
 				C3614B311F1C899600B1F4A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
