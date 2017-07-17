@@ -85,7 +85,7 @@ open class Assembly: AssemblyInternal {
 
     public func definePlaceholder<ObjectType: InjectableObject>(key: String = #function) -> ObjectType {
         let closure: DefinitionClosure<ObjectType>? = nil
-        return self.define(key: key, initClosure: closure)
+        return self.define(key: key, definitionClosure: closure)
     }
     
     public func defineInjection<ObjectType>(key: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, into initClosure: @autoclosure @escaping () -> ObjectType, inject injectClosure: @escaping ObjectInjectClosure<ObjectType> = { _ in } ) {
@@ -100,7 +100,7 @@ open class Assembly: AssemblyInternal {
         }
     }
 
-    fileprivate func define<ObjectType: InjectableObject, ResultType: InjectableObject>(key simpleKey: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, initClosure: DefinitionClosure<ObjectType>? = nil) -> ResultType {
+    fileprivate func define<ObjectType: InjectableObject, ResultType: InjectableObject>(key simpleKey: String = #function, definitionKey: String = #function, scope: Scope = .objectGraph, definitionClosure: DefinitionClosure<ObjectType>? = nil) -> ResultType {
         
         let key: String = String(reflecting: self).replacingOccurrences(of: ".", with: "")+simpleKey
         var result:ObjectType
@@ -125,7 +125,7 @@ open class Assembly: AssemblyInternal {
         } else {
 
             let definition = Definition<ObjectType>()
-            initClosure?(definition)
+            definitionClosure?(definition)
             self.definitions[definitionKey] = definition
             
             guard var object = definition.initObject() else {
