@@ -350,13 +350,13 @@ open class Assembly: AssemblyInternal {
             fatalError("Assembly has no context to work in")
         }
         
-        if let substitutionClosure = self.substitutions[definitionKey], let object = substitutionClosure() as? ResultType {
+        if let substitutionClosure = self.substitutions[definitionKey] {
             
-            return object
+            return substitutionClosure() as! ResultType
             
-        } else if scope == .lazySingleton, let singleton = self.singletons[key] as? ObjectType {
+        } else if scope == .lazySingleton, let singleton = self.singletons[key] {
             
-            result = singleton
+            result = singleton as! ObjectType
             
         } else if let objectFromStack = context.objectGraphStack[key] as? ObjectType, scope == .objectGraph {
             
@@ -380,6 +380,7 @@ open class Assembly: AssemblyInternal {
             guard var object = definition.initObject() else {
                 fatalError("Failed to initialize object")
             }
+            
             context.objectGraphStack[key] = object
             context.objectGraphStackDepth += 1
             definition.injectObject(object: &object)
