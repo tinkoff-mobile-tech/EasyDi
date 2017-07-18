@@ -2,8 +2,7 @@
 //  Test_XKCDService.swift
 //  EasyDi
 //
-//  Created by Andrey Zarembo on 31.05.17.
-//  Copyright © 2017 CocoaPods. All rights reserved.
+//  Created by Andrey Zarembo
 //
 
 import Foundation
@@ -11,7 +10,7 @@ import Foundation
 import UIKit
 import XCTest
 import EasyDi
-@testable import EasyDi_Example
+@testable import iOS_Example
 
 class Test_XKCDService: XCTestCase {
     
