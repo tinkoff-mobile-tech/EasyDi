@@ -10,7 +10,7 @@ env:
   - LANG=en_US.UTF-8
   - WORKSPACE=EasyDi.xcworkspace
   - IOS_FRAMEWORK_SCHEME="EasyDi-iOS"
-#  - MACOS_FRAMEWORK_SCHEME="EasyDi-macOS"
+  - MACOS_FRAMEWORK_SCHEME="EasyDi-macOS"
 #  - TVOS_FRAMEWORK_SCHEME="EasyDi-tvOS"
 #  - WATCHOS_FRAMEWORK_SCHEME="EasyDi-watchOS"
   - EXAMPLE_SCHEME="EasyDi-Example"

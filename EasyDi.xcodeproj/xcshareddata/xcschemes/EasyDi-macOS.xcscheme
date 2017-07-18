@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C36D9F4F1F1C0DC9009FD9AD"
-               BuildableName = "EasyDi.framework"
-               BlueprintName = "EasyDi-iOS"
+               BlueprintIdentifier = "C37DEA171F1E9AA000279AD3"
+               BuildableName = "EasyDi_macOS.framework"
+               BlueprintName = "EasyDi-macOS"
                ReferencedContainer = "container:EasyDi.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C3614B3A1F1C8AE900B1F4A1"
-               BuildableName = "EasyDi-iOS-Tests.xctest"
-               BlueprintName = "EasyDi-iOS-Tests"
+               BlueprintIdentifier = "C37DEA231F1E9AE500279AD3"
+               BuildableName = "EasyDi_macOS-Tests.xctest"
+               BlueprintName = "EasyDi_macOS-Tests"
                ReferencedContainer = "container:EasyDi.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C3614B3A1F1C8AE900B1F4A1"
-               BuildableName = "EasyDi-iOS-Tests.xctest"
-               BlueprintName = "EasyDi-iOS-Tests"
+               BlueprintIdentifier = "C37DEA231F1E9AE500279AD3"
+               BuildableName = "EasyDi_macOS-Tests.xctest"
+               BlueprintName = "EasyDi_macOS-Tests"
                ReferencedContainer = "container:EasyDi.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -57,9 +57,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C36D9F4F1F1C0DC9009FD9AD"
-            BuildableName = "EasyDi.framework"
-            BlueprintName = "EasyDi-iOS"
+            BlueprintIdentifier = "C37DEA171F1E9AA000279AD3"
+            BuildableName = "EasyDi_macOS.framework"
+            BlueprintName = "EasyDi-macOS"
             ReferencedContainer = "container:EasyDi.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -80,9 +80,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C36D9F4F1F1C0DC9009FD9AD"
-            BuildableName = "EasyDi.framework"
-            BlueprintName = "EasyDi-iOS"
+            BlueprintIdentifier = "C37DEA171F1E9AA000279AD3"
+            BuildableName = "EasyDi_macOS.framework"
+            BlueprintName = "EasyDi-macOS"
             ReferencedContainer = "container:EasyDi.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -98,9 +98,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C36D9F4F1F1C0DC9009FD9AD"
-            BuildableName = "EasyDi.framework"
-            BlueprintName = "EasyDi-iOS"
+            BlueprintIdentifier = "C37DEA171F1E9AA000279AD3"
+            BuildableName = "EasyDi_macOS.framework"
+            BlueprintName = "EasyDi-macOS"
             ReferencedContainer = "container:EasyDi.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

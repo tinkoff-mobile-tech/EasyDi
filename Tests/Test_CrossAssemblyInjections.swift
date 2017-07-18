@@ -2,13 +2,10 @@
 //  Test_CrossAssemblyInjections.swift
 //  EasyDi
 //
-//  Created by Andrey Zarembo on 17.05.17.
-//  Copyright © 2017 CocoaPods. All rights reserved.
+//  Created by Andrey Zarembo
 //
 
 import Foundation
-
-import UIKit
 import XCTest
 import EasyDi
 

@@ -2,13 +2,10 @@
 //  Test_Substitutiones.swift
 //  EasyDi
 //
-//  Created by Andrey Zarembo on 20.05.17.
-//  Copyright © 2017 CocoaPods. All rights reserved.
+//  Created by Andrey Zarembo
 //
 
 import Foundation
-
-import UIKit
 import XCTest
 import EasyDi
 

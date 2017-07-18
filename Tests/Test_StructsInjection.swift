@@ -2,12 +2,10 @@
 //  Test_StructsInjection.swift
 //  EasyDi_Example
 //
-//  Created by Andrey Zarembo on 16.07.2017.
-//  Copyright © 2017 CocoaPods. All rights reserved.
+//  Created by Andrey Zarembo
 //
 
 import Foundation
-import UIKit
 import XCTest
 import EasyDi
 

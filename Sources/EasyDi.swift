@@ -26,7 +26,7 @@ public final class DIContext {
     
     fileprivate lazy var syncQueue:DispatchQueue = Dispatch.DispatchQueue(label: "EasyDi Context Sync Queue", qos: .userInteractive)
     
-    static var defaultInstance = DIContext()
+    public static var defaultInstance = DIContext()
     fileprivate var assemblies:[String:Assembly] = [:]
 
     var objectGraphStorage: [String: InjectableObject] = [:]

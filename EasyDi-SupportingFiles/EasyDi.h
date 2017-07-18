@@ -2,8 +2,7 @@
 //  EasyDi.h
 //  EasyDi
 //
-//  Created by Andrey Zarembo on 17.07.2017.
-//  Copyright © 2017 AndreyZarembo. All rights reserved.
+//  Created by Andrey Zarembo
 //
 
 #import <UIKit/UIKit.h>

@@ -17,6 +17,16 @@
 		C3614B591F1C8B6800B1F4A1 /* Test_Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B4A1F1C8B5F00B1F4A1 /* Test_Scope.swift */; };
 		C3614B5A1F1C8B6800B1F4A1 /* Test_StructsInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B4B1F1C8B5F00B1F4A1 /* Test_StructsInjection.swift */; };
 		C3614B5D1F1C8BAE00B1F4A1 /* EasyDi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C36D9F501F1C0DC9009FD9AD /* EasyDi.framework */; };
+		C37DEA1C1F1E9AA000279AD3 /* EasyDi_macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = C37DEA1A1F1E9AA000279AD3 /* EasyDi_macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C37DEA291F1E9AE500279AD3 /* EasyDi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37DEA181F1E9AA000279AD3 /* EasyDi.framework */; };
+		C37DEA2F1F1E9B0500279AD3 /* EasyDi.swift in Sources */ = {isa = PBXBuildFile; fileRef = C317CA631F1C7C2A00FAD212 /* EasyDi.swift */; };
+		C37DEA301F1E9B2100279AD3 /* Test_Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B451F1C8B5F00B1F4A1 /* Test_Context.swift */; };
+		C37DEA311F1E9B2100279AD3 /* Test_CrossAssemblyInjections.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B461F1C8B5F00B1F4A1 /* Test_CrossAssemblyInjections.swift */; };
+		C37DEA321F1E9B2100279AD3 /* Test_Injections.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B471F1C8B5F00B1F4A1 /* Test_Injections.swift */; };
+		C37DEA331F1E9B2100279AD3 /* Test_Patches.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B481F1C8B5F00B1F4A1 /* Test_Patches.swift */; };
+		C37DEA341F1E9B2100279AD3 /* Test_ProtocolBasedInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B491F1C8B5F00B1F4A1 /* Test_ProtocolBasedInjection.swift */; };
+		C37DEA351F1E9B2100279AD3 /* Test_Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B4A1F1C8B5F00B1F4A1 /* Test_Scope.swift */; };
+		C37DEA361F1E9B2100279AD3 /* Test_StructsInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B4B1F1C8B5F00B1F4A1 /* Test_StructsInjection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,6 +36,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = C36D9F4F1F1C0DC9009FD9AD;
 			remoteInfo = "EasyDi-iOS";
+		};
+		C37DEA2A1F1E9AE500279AD3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C36D9F471F1C0DC9009FD9AD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C37DEA171F1E9AA000279AD3;
+			remoteInfo = "EasyDi-macOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -43,6 +60,11 @@
 		C3614B4A1F1C8B5F00B1F4A1 /* Test_Scope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Test_Scope.swift; path = Tests/Test_Scope.swift; sourceTree = SOURCE_ROOT; };
 		C3614B4B1F1C8B5F00B1F4A1 /* Test_StructsInjection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Test_StructsInjection.swift; path = Tests/Test_StructsInjection.swift; sourceTree = SOURCE_ROOT; };
 		C36D9F501F1C0DC9009FD9AD /* EasyDi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EasyDi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C37DEA181F1E9AA000279AD3 /* EasyDi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EasyDi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C37DEA1A1F1E9AA000279AD3 /* EasyDi_macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyDi_macOS.h; sourceTree = "<group>"; };
+		C37DEA1B1F1E9AA000279AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C37DEA241F1E9AE500279AD3 /* EasyDi_macOS-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EasyDi_macOS-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C37DEA281F1E9AE500279AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +80,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C37DEA141F1E9AA000279AD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C37DEA211F1E9AE500279AD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C37DEA291F1E9AE500279AD3 /* EasyDi.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +122,8 @@
 			children = (
 				C36D9F521F1C0DC9009FD9AD /* EasyDi */,
 				C3614B431F1C8B4600B1F4A1 /* Tests */,
+				C37DEA191F1E9AA000279AD3 /* EasyDi-macOS */,
+				C37DEA251F1E9AE500279AD3 /* EasyDi_macOS-Tests */,
 				C36D9F511F1C0DC9009FD9AD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -94,6 +133,8 @@
 			children = (
 				C36D9F501F1C0DC9009FD9AD /* EasyDi.framework */,
 				C3614B3B1F1C8AE900B1F4A1 /* EasyDi-iOS-Tests.xctest */,
+				C37DEA181F1E9AA000279AD3 /* EasyDi.framework */,
+				C37DEA241F1E9AE500279AD3 /* EasyDi_macOS-Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,6 +149,23 @@
 			path = EasyDi;
 			sourceTree = "<group>";
 		};
+		C37DEA191F1E9AA000279AD3 /* EasyDi-macOS */ = {
+			isa = PBXGroup;
+			children = (
+				C37DEA1A1F1E9AA000279AD3 /* EasyDi_macOS.h */,
+				C37DEA1B1F1E9AA000279AD3 /* Info.plist */,
+			);
+			path = "EasyDi-macOS";
+			sourceTree = "<group>";
+		};
+		C37DEA251F1E9AE500279AD3 /* EasyDi_macOS-Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C37DEA281F1E9AE500279AD3 /* Info.plist */,
+			);
+			path = "EasyDi_macOS-Tests";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -116,6 +174,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C317CA671F1C7C3400FAD212 /* EasyDi.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C37DEA151F1E9AA000279AD3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C37DEA1C1F1E9AA000279AD3 /* EasyDi_macOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,13 +224,49 @@
 			productReference = C36D9F501F1C0DC9009FD9AD /* EasyDi.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		C37DEA171F1E9AA000279AD3 /* EasyDi-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C37DEA1F1F1E9AA100279AD3 /* Build configuration list for PBXNativeTarget "EasyDi-macOS" */;
+			buildPhases = (
+				C37DEA131F1E9AA000279AD3 /* Sources */,
+				C37DEA141F1E9AA000279AD3 /* Frameworks */,
+				C37DEA151F1E9AA000279AD3 /* Headers */,
+				C37DEA161F1E9AA000279AD3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "EasyDi-macOS";
+			productName = "EasyDi-macOS";
+			productReference = C37DEA181F1E9AA000279AD3 /* EasyDi.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C37DEA231F1E9AE500279AD3 /* EasyDi_macOS-Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C37DEA2C1F1E9AE500279AD3 /* Build configuration list for PBXNativeTarget "EasyDi_macOS-Tests" */;
+			buildPhases = (
+				C37DEA201F1E9AE500279AD3 /* Sources */,
+				C37DEA211F1E9AE500279AD3 /* Frameworks */,
+				C37DEA221F1E9AE500279AD3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C37DEA2B1F1E9AE500279AD3 /* PBXTargetDependency */,
+			);
+			name = "EasyDi_macOS-Tests";
+			productName = "EasyDi_macOS-Tests";
+			productReference = C37DEA241F1E9AE500279AD3 /* EasyDi_macOS-Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		C36D9F471F1C0DC9009FD9AD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 0900;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = AndreyZarembo;
 				TargetAttributes = {
@@ -175,6 +277,12 @@
 					C36D9F4F1F1C0DC9009FD9AD = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0830;
+					};
+					C37DEA171F1E9AA000279AD3 = {
+						CreatedOnToolsVersion = 9.0;
+					};
+					C37DEA231F1E9AE500279AD3 = {
+						CreatedOnToolsVersion = 9.0;
 					};
 				};
 			};
@@ -192,6 +300,8 @@
 			targets = (
 				C36D9F4F1F1C0DC9009FD9AD /* EasyDi-iOS */,
 				C3614B3A1F1C8AE900B1F4A1 /* EasyDi-iOS-Tests */,
+				C37DEA171F1E9AA000279AD3 /* EasyDi-macOS */,
+				C37DEA231F1E9AE500279AD3 /* EasyDi_macOS-Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -205,6 +315,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C36D9F4E1F1C0DC9009FD9AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C37DEA161F1E9AA000279AD3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C37DEA221F1E9AE500279AD3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -236,6 +360,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C37DEA131F1E9AA000279AD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C37DEA2F1F1E9B0500279AD3 /* EasyDi.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C37DEA201F1E9AE500279AD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C37DEA361F1E9B2100279AD3 /* Test_StructsInjection.swift in Sources */,
+				C37DEA331F1E9B2100279AD3 /* Test_Patches.swift in Sources */,
+				C37DEA311F1E9B2100279AD3 /* Test_CrossAssemblyInjections.swift in Sources */,
+				C37DEA321F1E9B2100279AD3 /* Test_Injections.swift in Sources */,
+				C37DEA301F1E9B2100279AD3 /* Test_Context.swift in Sources */,
+				C37DEA341F1E9B2100279AD3 /* Test_ProtocolBasedInjection.swift in Sources */,
+				C37DEA351F1E9B2100279AD3 /* Test_Scope.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -243,6 +389,11 @@
 			isa = PBXTargetDependency;
 			target = C36D9F4F1F1C0DC9009FD9AD /* EasyDi-iOS */;
 			targetProxy = C3614B5B1F1C8BA700B1F4A1 /* PBXContainerItemProxy */;
+		};
+		C37DEA2B1F1E9AE500279AD3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C37DEA171F1E9AA000279AD3 /* EasyDi-macOS */;
+			targetProxy = C37DEA2A1F1E9AE500279AD3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -433,6 +584,94 @@
 			};
 			name = Release;
 		};
+		C37DEA1D1F1E9AA000279AD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3J6P4R5UZ6;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "EasyDi-macOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi;
+				PRODUCT_NAME = EasyDi;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		C37DEA1E1F1E9AA000279AD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3J6P4R5UZ6;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "EasyDi-macOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi;
+				PRODUCT_NAME = EasyDi;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		C37DEA2D1F1E9AE500279AD3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3J6P4R5UZ6;
+				INFOPLIST_FILE = "EasyDi_macOS-Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi.mac.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		C37DEA2E1F1E9AE500279AD3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 3J6P4R5UZ6;
+				INFOPLIST_FILE = "EasyDi_macOS-Tests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi.mac.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -443,6 +682,7 @@
 				C3614B421F1C8AE900B1F4A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C36D9F4A1F1C0DC9009FD9AD /* Build configuration list for PBXProject "EasyDi" */ = {
 			isa = XCConfigurationList;
@@ -461,6 +701,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C37DEA1F1F1E9AA100279AD3 /* Build configuration list for PBXNativeTarget "EasyDi-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C37DEA1D1F1E9AA000279AD3 /* Debug */,
+				C37DEA1E1F1E9AA000279AD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C37DEA2C1F1E9AE500279AD3 /* Build configuration list for PBXNativeTarget "EasyDi_macOS-Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C37DEA2D1F1E9AE500279AD3 /* Debug */,
+				C37DEA2E1F1E9AE500279AD3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

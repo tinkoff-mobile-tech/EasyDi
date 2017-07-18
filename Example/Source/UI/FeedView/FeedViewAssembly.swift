@@ -2,8 +2,7 @@
 //  FeedViewAssembly.swift
 //  EasyDi
 //
-//  Created by Andrey Zarembo on 31.05.17.
-//  Copyright © 2017 CocoaPods. All rights reserved.
+//  Created by Andrey Zarembo
 //
 
 import Foundation
