@@ -29,7 +29,7 @@ public final class DIContext {
     static var defaultInstance = DIContext()
     fileprivate var assemblies:[String:Assembly] = [:]
 
-    var objectGraphStack: [String: InjectableObject] = [:]
+    var objectGraphStorage: [String: InjectableObject] = [:]
     
     var objectGraphStackDepth:Int = 0
     var zeroDepthInjectionClosures:[()->Void] = []
@@ -343,66 +343,57 @@ open class Assembly: AssemblyInternal {
         scope: Scope = .objectGraph,
         definitionClosure: DefinitionClosure<ObjectType>? = nil) -> ResultType {
         
+        // Objects are stored in context by key made of Assembly class name and name of var or method
         let key: String = String(reflecting: self).replacingOccurrences(of: ".", with: "")+simpleKey
         var result:ObjectType
 
         guard let context = self.context else {
             fatalError("Assembly has no context to work in")
         }
-        
+
+        // First of all it checks if there's substitution for this var or method
         if let substitutionClosure = self.substitutions[definitionKey] {
             
             return substitutionClosure() as! ResultType
             
+        // Next check for existing singletons
         } else if scope == .lazySingleton, let singleton = self.singletons[key] {
             
             result = singleton as! ObjectType
             
-        } else if let objectFromStack = context.objectGraphStack[key] as? ObjectType, scope == .objectGraph {
+        // And trying to return object from graph
+        } else if let objectFromStack = context.objectGraphStorage[key] as? ObjectType, scope == .objectGraph {
             
             result = objectFromStack
             
-        } else if let definition = self.definitions[definitionKey], var object = definition.initObject() {
-
-            result = object as! ObjectType
-            context.objectGraphStack[key] = result
-            self.context.zeroDepthInjectionClosures.append {
-                
-                definition.injectObject(object: &object)
-            }
-            
+        // Creating and initializing object
         } else {
 
+            // Create Definition object to store injections and dependencies information
             let definition = Definition<ObjectType>()
             definitionClosure?(definition)
-            self.definitions[definitionKey] = definition
             
             guard var object = definition.initObject() else {
                 fatalError("Failed to initialize object")
             }
             
-            context.objectGraphStack[key] = object
+            // Object is created. It's stores in the object graph with it's key
+            context.objectGraphStorage[key] = object
+            // Going deeper to 'stack'.
+            // Injections of this object will resolve dependencies recurently using objects from graph
             context.objectGraphStackDepth += 1
             definition.injectObject(object: &object)
             context.objectGraphStackDepth -= 1
 
             result = object as! ObjectType
         }
-
+        
+        // When recursion is finished, remove all objects from objectGraph
         if context.objectGraphStackDepth == 0 {
-            
-            while let closure = self.context.zeroDepthInjectionClosures.popLast() {
-                
-                context.objectGraphStack[key] = result
-                context.objectGraphStackDepth += 1
-                closure()
-                context.objectGraphStackDepth -= 1
-            }
-            
-            context.objectGraphStack.removeAll()
-            definitions.removeAll()
+            context.objectGraphStorage.removeAll()
         }
 
+        // And save singletons
         if self.singletons[key] == nil, scope == .lazySingleton {
             
             self.singletons[key] = result
