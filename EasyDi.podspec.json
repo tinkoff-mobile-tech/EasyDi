@@ -18,7 +18,7 @@
   "social_media_url": "https://twitter.com/AndreyZarembo",
   "platforms": {
     "ios": "8.0",
-    "mac": "10.10"
+    "osx": "10.10"
   },
   "source_files": "Sources/**/*.swift"
 }
