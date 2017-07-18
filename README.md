@@ -7,7 +7,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/EasyDi.svg?style=flat)](http://cocoapods.org/pods/EasyDi)
 [![Swift Version](https://img.shields.io/badge/Swift-3.0--4.0-F16D39.svg?style=flat)](https://developer.apple.com/swift)
 
-![](easy_di_logo.png)
+![](Images/easy_di_logo.png)
 
 Effective DI library for rapid development in 200 lines of code.
 
@@ -244,7 +244,7 @@ var a1 = ABCAssembly.instance().a
 var a2 = ABCAssembly.instance().a
 ```
 
-![](/scopes_object_graph.png)
+![](Images/scopes_object_graph.png)
 Two independent graphs were obtained.
 
 ### Singleton
@@ -277,7 +277,8 @@ class ABCAssembly: Assembly {
 var a1 = ABCAssembly.instance().a
 var a2 = ABCAssembly.instance().a
 ```
-![](/scopes_singleton.png)
+
+![](Images/scopes_singleton.png)
 This time, one object graph was obtained, because B instance became shared singleton.
 Since we don't recreate (rebuild) objects with 'lazySingleton' scope, instance of B didn't change its dependencies after 'var a2 = ABCAssembly...'
 
@@ -311,7 +312,7 @@ class ABCAssembly: Assembly {
 var a1 = ABCAssembly.instance().a
 var a2 = ABCAssembly.instance().a
 ```
-![](/scopes_prototype.png)
+![](Images/scopes_prototype.png)
 
 As a result two graphs of objects are created with 4 copies of object A
 
