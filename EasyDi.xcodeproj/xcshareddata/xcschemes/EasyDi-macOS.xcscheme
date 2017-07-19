@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C37DEA171F1E9AA000279AD3"
-               BuildableName = "EasyDi_macOS.framework"
+               BuildableName = "EasyDi.framework"
                BlueprintName = "EasyDi-macOS"
                ReferencedContainer = "container:EasyDi.xcodeproj">
             </BuildableReference>
@@ -58,7 +58,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C37DEA171F1E9AA000279AD3"
-            BuildableName = "EasyDi_macOS.framework"
+            BuildableName = "EasyDi.framework"
             BlueprintName = "EasyDi-macOS"
             ReferencedContainer = "container:EasyDi.xcodeproj">
          </BuildableReference>
@@ -81,7 +81,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C37DEA171F1E9AA000279AD3"
-            BuildableName = "EasyDi_macOS.framework"
+            BuildableName = "EasyDi.framework"
             BlueprintName = "EasyDi-macOS"
             ReferencedContainer = "container:EasyDi.xcodeproj">
          </BuildableReference>
@@ -99,7 +99,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C37DEA171F1E9AA000279AD3"
-            BuildableName = "EasyDi_macOS.framework"
+            BuildableName = "EasyDi.framework"
             BlueprintName = "EasyDi-macOS"
             ReferencedContainer = "container:EasyDi.xcodeproj">
          </BuildableReference>
