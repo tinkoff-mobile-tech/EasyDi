@@ -354,7 +354,12 @@ open class Assembly: AssemblyInternal {
         // First of all it checks if there's substitution for this var or method
         if let substitutionClosure = self.substitutions[definitionKey] {
             
-            return substitutionClosure() as! ResultType
+            let substitutionObject = substitutionClosure()
+            guard let object = substitutionObject as? ResultType else {
+                fatalError("Expected type: \(ResultType.self), received: \(type(of: substitutionObject))")
+            }
+            return object
+
             
         // Next check for existing singletons
         } else if scope == .lazySingleton, let singleton = self.singletons[key] {
@@ -365,7 +370,14 @@ open class Assembly: AssemblyInternal {
         } else if let objectFromStack = context.objectGraphStorage[key] as? ObjectType, scope == .objectGraph {
             
             result = objectFromStack
+
+        } else if let definition = self.definitions[definitionKey], var object = definition.initObject() {
             
+            result = object as! ObjectType
+            context.objectGraphStorage[key] = result
+            self.context.zeroDepthInjectionClosures.append {
+                definition.injectObject(object: &object)
+            }
         // Creating and initializing object
         } else {
 
@@ -390,7 +402,14 @@ open class Assembly: AssemblyInternal {
         
         // When recursion is finished, remove all objects from objectGraph
         if context.objectGraphStackDepth == 0 {
+            while let closure = self.context.zeroDepthInjectionClosures.popLast() {
+                context.objectGraphStorage[key] = result
+                context.objectGraphStackDepth += 1
+                closure()
+                context.objectGraphStackDepth -= 1
+            }
             context.objectGraphStorage.removeAll()
+            definitions.removeAll()
         }
 
         // And save singletons
