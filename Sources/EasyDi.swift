@@ -384,6 +384,7 @@ open class Assembly: AssemblyInternal {
             // Create Definition object to store injections and dependencies information
             let definition = Definition<ObjectType>()
             definitionClosure?(definition)
+            self.definitions[definitionKey] = definition
             
             guard var object = definition.initObject() else {
                 fatalError("Failed to initialize object")
