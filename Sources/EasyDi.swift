@@ -365,7 +365,14 @@ open class Assembly: AssemblyInternal {
         } else if let objectFromStack = context.objectGraphStorage[key] as? ObjectType, scope == .objectGraph {
             
             result = objectFromStack
+
+        } else if let definition = self.definitions[definitionKey], var object = definition.initObject() {
             
+            result = object as! ObjectType
+            context.objectGraphStorage[key] = result
+            self.context.zeroDepthInjectionClosures.append {
+                definition.injectObject(object: &object)
+            }
         // Creating and initializing object
         } else {
 
@@ -390,7 +397,14 @@ open class Assembly: AssemblyInternal {
         
         // When recursion is finished, remove all objects from objectGraph
         if context.objectGraphStackDepth == 0 {
+            while let closure = self.context.zeroDepthInjectionClosures.popLast() {
+                context.objectGraphStorage[key] = result
+                context.objectGraphStackDepth += 1
+                closure()
+                context.objectGraphStackDepth -= 1
+            }
             context.objectGraphStorage.removeAll()
+            definitions.removeAll()
         }
 
         // And save singletons
