@@ -354,7 +354,12 @@ open class Assembly: AssemblyInternal {
         // First of all it checks if there's substitution for this var or method
         if let substitutionClosure = self.substitutions[definitionKey] {
             
-            return substitutionClosure() as! ResultType
+            let substitutionObject = substitutionClosure()
+            guard let object = substitutionObject as? ResultType else {
+                fatalError("Expected type: \(ResultType.self), received: \(type(of: substitutionObject))")
+            }
+            return object
+
             
         // Next check for existing singletons
         } else if scope == .lazySingleton, let singleton = self.singletons[key] {
