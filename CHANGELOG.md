@@ -8,6 +8,16 @@ All notable changes to this project will be documented in this file.
 - `1.0.x` Releases - [1.0.0](#100)
 
 ---
+## [1.3.1](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.3.1)
+Released on 2017-07-24
+
+#### Fixed
+- Circular dependency resolution bug
+
+#### Added
+- Substitution type check with fatalError
+
+
 ## [1.3.0](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.3.0)
 Released on 2017-07-18
 
