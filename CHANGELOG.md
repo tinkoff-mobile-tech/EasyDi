@@ -2,11 +2,40 @@
 All notable changes to this project will be documented in this file.
 
 #### 1.x Releases
+- `1.3.x` Releases - [1.3.0](#130)
 - `1.2.x` Releases - [1.2.0](#120)
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111)
 - `1.0.x` Releases - [1.0.0](#100)
 
 ---
+## [1.3.2](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.3.2)
+Released on 2017-07-24
+
+#### Fixed
+- Another fix for circular dependency resolution bug
+
+
+## [1.3.1](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.3.1)
+Released on 2017-07-24
+
+#### Fixed
+- Circular dependency resolution bug
+
+#### Added
+- Substitution type check with fatalError
+
+
+## [1.3.0](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.3.0)
+Released on 2017-07-18
+
+#### Added
+- macOS support
+- Code documentation
+
+#### Updated
+- Little refactoring
+- travis build script
+
 
 ## [1.2.0](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.2.0)
 Released on 2017-07-17
