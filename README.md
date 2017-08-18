@@ -178,7 +178,7 @@ And this is how we inject the service in the viewcontroller:
 ```swift
 class OrderViewAssembly: Assembly {
 
-  var serviceAssembly: ServiceAssembly = self.context.assembly()
+  lazy var serviceAssembly: ServiceAssembly = self.context.assembly()
 
 
   func inject(into controller: OrderViewController, purchaseId: String) {
