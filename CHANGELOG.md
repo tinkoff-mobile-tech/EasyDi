@@ -8,6 +8,13 @@ All notable changes to this project will be documented in this file.
 - `1.0.x` Releases - [1.0.0](#100)
 
 ---
+## [1.3.3](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.3.3)
+Released on 2017-07-24
+
+#### Fixed
+- Fixed singletons retain bug.(Thanx to @alekseykolchanov)
+
+
 ## [1.3.2](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.3.2)
 Released on 2017-07-24
 
