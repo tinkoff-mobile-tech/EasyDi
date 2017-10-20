@@ -15,18 +15,21 @@ class ServiceAssembly: Assembly {
             $0.apiClient = self.apiClient
             $0.baseURL = URL(string: "https://xkcd.com")
             $0.stripURLSuffix = "/info.0.json"
+            return $0
         }
     }
     
     var apiClient: IJSONAPIClient {
         return define(scope: .lazySingleton,init: JSONAPIClient()) {
             $0.session = self.session
+            return $0
         }
     }
     
     var imageService: ImageService {
         return define(scope: .lazySingleton, init: ImageService()) {
             $0.session = self.session
+            return $0
         }
     }
     

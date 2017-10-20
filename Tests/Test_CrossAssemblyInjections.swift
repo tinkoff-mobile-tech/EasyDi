@@ -37,6 +37,7 @@ class Test_CrossAssemblyInjections: XCTestCase {
                     self.testChildObjectAssembly.testChildObjectPrototype,
                     self.testChildObjectAssembly.testChildObjectPrototype
                 ]
+                return $0
             }
         }
     }
@@ -50,12 +51,14 @@ class Test_CrossAssemblyInjections: XCTestCase {
         var testChildObject: TestChildObject {
             return define(init: TestChildObject()) {
                 $0.parentObject = self.testObjectAssembly.testObject
+                return $0
             }
         }
         
         var testChildObjectPrototype: TestChildObject {
             return define(scope: .prototype, init: TestChildObject()) {
                 $0.parentObject = self.testObjectAssembly.testObject
+                return $0
             }
         }
     }

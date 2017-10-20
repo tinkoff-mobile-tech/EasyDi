@@ -31,8 +31,10 @@ class Test_StructsInjection: XCTestCase {
             
             var testObject: TestStructsInjectionProtocol {
                 return define(init: TestStruct()) {
-                    $0.intValue = 10
-                    $0.stringValue = "TestString"
+                    var testStruct = $0
+                    testStruct.intValue = 10
+                    testStruct.stringValue = "TestString"
+                    return testStruct
                 }
             }
         }
@@ -60,13 +62,17 @@ class Test_StructsInjection: XCTestCase {
             
             var structA: TestStructProtocol {
                 return define(init: TestStructA()) {
-                    $0.anotherStruct = self.structB
+                    var testStruct = $0
+                    testStruct.anotherStruct = self.structB
+                    return testStruct
                 }
             }
             
             var structB: TestStructProtocol {
                 return define(init: TestStructB()) {
-                    $0.anotherStruct = self.structA
+                    var testStruct = $0
+                    testStruct.anotherStruct = self.structA
+                    return testStruct
                 }
             }
         }
