@@ -367,7 +367,7 @@ open class Assembly: AssemblyInternal {
             result = singleton as! ObjectType
             
         // And trying to return object from graph
-        } else if let objectFromStack = context.objectGraphStorage[key] as? ObjectType, scope == .objectGraph {
+        } else if let objectFromStack = context.objectGraphStorage[key] as? ObjectType, scope != .prototype {
             
             result = objectFromStack
 
