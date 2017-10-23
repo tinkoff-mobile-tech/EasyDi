@@ -15,6 +15,7 @@ Released on 2017-10-23
 #### Updated
 - !Breaking changes! Decided to replaced 'inout' closure variable type with return value. To fix issue with NSObject release. (Thanx to @alekseykolchanov for Pull Request)
 - @alekseykolchanov advised to remove 'Definition Cache'
+- Moved singletons and substitutions storages to the context
 
 #### Fixed
 - [Issue #14. Weird NSObject dealloc with Swift 4](https://github.com/AndreyZarembo/EasyDi/issues/14)
