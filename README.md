@@ -91,6 +91,7 @@ There are no register / resolve methods in EasyDi. Instead of this, the dependen
 var apiClient: IAPIClient {
   return define(init: APIClient()) {
     $0.baseURl = self.baseURL
+    return $0
   }
 }
 ```
@@ -160,6 +161,7 @@ class ServiceAssembly: Assembly {
     return define(init: PurchaseService()) {
       $0.baseURL = self.apiV1BaseURL
       $0.apiClient = self.apiClient
+      return $0
     }
   }
 
@@ -183,8 +185,9 @@ class OrderViewAssembly: Assembly {
 
   func inject(into controller: OrderViewController, purchaseId: String) {
     let _:OrderViewController = define(init: controller) {
-    $0.purchaseService = self.serviceAssembly.purchaseService
-    $0.purchaseId = purchaseId
+      $0.purchaseService = self.serviceAssembly.purchaseService
+      $0.purchaseId = purchaseId
+      return $0
     }
   }
 }
@@ -220,18 +223,21 @@ class ABCAssembly: Assembly {
   var a:A {
     return define(init: A()) {
       $0.b = self.B()
+      return $0
     }
   }
 
   var b:B {
     return define(init: B()) {
       $0.c = self.C()
+      return $0
     }
   }
 
   var c:C {
     return define(init: C()) {
       $0.a = self.A()
+      return $0
     }
   }
 }
@@ -256,18 +262,21 @@ class ABCAssembly: Assembly {
   var a:A {
     return define(init: A()) {
       $0.b = self.B()
+      return $0
     }
   }
 
   var b:B {
     return define(scope: .lazySingleton, init: B()) {
       $0.c = self.C()
+      return $0
     }
   }
 
   var c:C {
     return define(init: C()) {
       $0.a = self.A()
+      return $0
     }
   }
 }
@@ -291,18 +300,21 @@ class ABCAssembly: Assembly {
   var a:A {
     return define(scope: .prototype, init: A()) {
       $0.b = self.B()
+      return $0
     }
   }
 
   var b:B {
     return define(init: B()) {
       $0.c = self.C()
+      return $0
     }
   }
 
   var c:C {
     return define(init: C()) {
       $0.a = self.A()
+      return $0
     }
   }
 }
@@ -350,6 +362,7 @@ class MyAssembly: Assembly {
   var theObject: ITheObject {
     return define(init: TheObject()) {
       $0.intParameter = 10
+      return $0
     }
   }
 }
@@ -373,6 +386,7 @@ let FeatureAssembly: Assembly {
   var feature: IFeature {
     return define(init: Feature) {
       ...
+      return $0
     }
   }
 }
@@ -384,6 +398,7 @@ let FeatureABTestAssembly: Assembly {
   var feature: IFeature {
     return define(init: FeatureV2) {
       ...
+      return $0
     }
   }
 
@@ -413,6 +428,7 @@ For this case, EasyDi has 'keys' with which you can return the same object from 
   func inject(into view: ModuleViewController) {
     return define(key: "view", init: view) {
       $0.presenter = self.presenter
+      return $0
     }
   }
 
@@ -424,6 +440,7 @@ For this case, EasyDi has 'keys' with which you can return the same object from 
     return define(init: ModulePresenter()) {
 	    $0.view = self.view
       $0.interactor = self.interactor
+      return $0
     }
   }
 
@@ -431,6 +448,7 @@ For this case, EasyDi has 'keys' with which you can return the same object from 
     return define(init: ModuleInteractor()) {
 	    $0.presenter = self.presenter
       ...
+      return $0
     }
   }
 }
