@@ -16,6 +16,7 @@ class FeedViewAssembly: Assembly {
         defineInjection(into: feedViewController) {
             $0.xkcdService = self.serviceAssembly.xkcdService
             $0.imageService = self.serviceAssembly.imageService
+            return $0
         }
     }
 }

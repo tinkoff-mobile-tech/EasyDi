@@ -31,6 +31,7 @@ class Test_Scope: XCTestCase {
             var singleton: TestSingletonObject {
                 return define(scope: .lazySingleton, init: TestSingletonObject()) {
                     $0.injected = true
+                    return $0
                 }
             }
         }
@@ -70,12 +71,14 @@ class Test_Scope: XCTestCase {
             var parentObject: ParentObject {
                 return define(init: ParentObject()) {
                     $0.child = self.childObject
+                    return $0
                 }
             }
             
             var childObject: ChildObject {
                 return define(init: ChildObject()) {
                     $0.parent = self.parentObject
+                    return $0
                 }
             }
         }
@@ -114,12 +117,14 @@ class Test_Scope: XCTestCase {
             var prototypeObject: PrototypeObject {
                 return define(scope: .prototype, init: PrototypeObject()) {
                     $0.child = self.childObject
+                    return $0
                 }
             }
             
             var childObject: SupportChildObject {
                 return define(init: SupportChildObject()) {
                     $0.parent = self.prototypeObject
+                    return $0
                 }
             }
         }

@@ -29,6 +29,7 @@ class Test_Injection: XCTestCase {
                     $0.intParameter = 10
                     $0.stringParamter = "TestString"
                     $0.arrayParameter = ["a","b","c"]
+                    return $0
                 }
             }
         }
@@ -48,6 +49,7 @@ class Test_Injection: XCTestCase {
                     $0.intParameter = 10
                     $0.stringParamter = "TestString"
                     $0.arrayParameter = ["a","b","c"]
+                    return $0
                 }
             }
         }
@@ -70,6 +72,7 @@ class Test_Injection: XCTestCase {
                     $0.stringParamter = "TestString"
                     $0.arrayParameter = ["a","b","c"]
                     $0.selfParameter = self.testObject
+                    return $0
                 }
             }
             

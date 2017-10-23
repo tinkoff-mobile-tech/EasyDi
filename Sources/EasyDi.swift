@@ -7,16 +7,16 @@ import Foundation
 
 public typealias InjectableObject = Any
 
-/// This class is used to join assembly instanced into separated shared group. 
+/// This class is used to join assembly instances into separated shared group.
 ///
 /// All assemblies with one context shares object graph stack.
 ///
-/// Also easy assembly instance has it's own singleton storage, so singletons is created one per context.
+/// Also every assembly instance has it's own singleton storage, so singletons is created one per context.
 ///
-/// Each test should have it's own context to persist independance of tests.
-/// Substitutions also applyed to assembly instance in context and not shared between contexts.
+/// Each test should have it's own context to persist independance of other tests.
+/// Substitutions are also applied to an assembly instance in context and are not shared between contexts.
 ///
-/// Assemblies should obtain insances of each other via it's contexts to mantain graph consistency.
+/// Assemblies should obtain instances of other assemblies via their contexts to maintain graph consistency.
 ///
 ///  ```
 ///  lazy var anotherAssembly: AnotherAssemblyClass = self.context.assembly()
@@ -32,11 +32,20 @@ public final class DIContext {
     var objectGraphStorage: [String: InjectableObject] = [:]
     
     var objectGraphStackDepth:Int = 0
-    var zeroDepthInjectionClosures:[()->Void] = []
+    
+    /// All lazy singletons are stored here.
+    ///
+    /// Dictionary key is **key** parameter from **define** method
+    var singletons:[String: InjectableObject] = [:]
+    
+    /// Array of applyed substitutions
+    ///
+    /// Dictionary key is **key** parameter from **define** method
+    internal var substitutions:[String: UntypedPatchClosure] = [:]
 
     public init() {}
 
-    /// This method creates assembly instance based on it's result.
+    /// This method creates assembly instance based on it's return type.
     ///
     /// - returns: Assembly instance
     ///
@@ -77,7 +86,7 @@ public final class DIContext {
     }
 }
 
-/// Helper protocol to get Assembly instanced based on it's class
+/// Helper protocol to get Assembly instantiated based on its class
 internal protocol AssemblyInternal {
     
     /// This method returns instance of assembly class
@@ -110,14 +119,14 @@ public enum Scope {
     
     /// [Singleton]: https://github.com/AndreyZarembo/EasyDi#singleton
     ///
-    /// Dependency is created one per assembly. And created only at resosultion, so why it's lazy
+    /// Dependency is created one per assembly. And created only at resosultion, that is why it's lazy
     ///
     /// [Singleton]  description contains short example with memory graph illustration
     case lazySingleton
 }
 
 
-/// This is assembly class. Is't used to describe dependencies and resolve it.
+/// This is assembly class. It is used to describe dependencies and resolve it.
 ///
 /// Syntax:
 /// ```
@@ -139,7 +148,7 @@ open class Assembly: AssemblyInternal {
 
     public internal(set) var context: DIContext!
 
-    /// This method creates assembly for specified context or default context if no paramters provided
+    /// This method creates assembly for specified context or default context if no parameters provided
     /// 
     /// - parameter context: DIContext object which assembly should belong to
     ///
@@ -159,21 +168,7 @@ open class Assembly: AssemblyInternal {
     /// Initialiser
     public required init() {}
 
-    /// All lazy singletons are stored here.
-    ///
-    /// Dictionary key is **key** parameter from **define** method
-    var singletons:[String: InjectableObject] = [:]
-    /// Temporary definitions cache
-    ///
-    /// Dictionary key is **key** parameter from **define** method
-    var definitions:[String: DefinitionInternal] = [:]
-    
-    /// Array of applyed substitutions
-    ///
-    /// Dictionary key is **key** parameter from **define** method
-    internal var substitutions:[String: UntypedPatchClosure] = [:]
-
-    /// This method forces assembly to return result of closure instead of assemblies dependency.
+    /// This method forces assembly to return result of closure instead of the assembly's dependency.
     ///
     /// It's usefull to stub objects and make A / B testing
     ///
@@ -181,19 +176,20 @@ open class Assembly: AssemblyInternal {
     /// - parameter substitutionClosure: closure, which returns result object for substitution
     ///
     public func addSubstitution<ObjectType: InjectableObject>(
-        for definitionKey: String,
+        for simpleDefinitionKey: String,
         with substitutionClosure: @escaping SubstitutionClosure<ObjectType>) {
         
-        self.substitutions[definitionKey] = substitutionClosure
+        let definitionKey: String = String(reflecting: self).replacingOccurrences(of: ".", with: "")+simpleDefinitionKey
+        self.context.substitutions[definitionKey] = substitutionClosure
     }
 
     /// This method removes substitution from assembly
     ///
     /// - parameter definitionKey: should exactly match method or property name of substituting dependency
     ///
-    public func removeSubstitution(for definitionKey: String) {
-        
-        self.substitutions[definitionKey] = nil
+    public func removeSubstitution(for simpleDefinitionKey: String) {
+        let definitionKey: String = String(reflecting: self).replacingOccurrences(of: ".", with: "")+simpleDefinitionKey
+        self.context.substitutions[definitionKey] = nil
     }
 
     /// The method defines return-only placeholder for object.
@@ -265,7 +261,7 @@ open class Assembly: AssemblyInternal {
         definitionKey: String = #function,
         scope: Scope = .objectGraph,
         into initClosure: @autoclosure @escaping () -> ObjectType,
-        inject injectClosure: @escaping ObjectInjectClosure<ObjectType> = { _ in } ) {
+        inject injectClosure: ObjectInjectClosure<ObjectType>? = nil ) {
         
         let _: ObjectType = self.define(
             key: key,
@@ -315,7 +311,7 @@ open class Assembly: AssemblyInternal {
         definitionKey: String = #function,
         scope: Scope = .objectGraph,
         init initClosure: @autoclosure @escaping () -> ObjectType,
-        inject injectClosure: @escaping ObjectInjectClosure<ObjectType> = { _ in } ) -> ResultType {
+        inject injectClosure: ObjectInjectClosure<ObjectType>? = nil ) -> ResultType {
 
         return self.define(key: key, definitionKey: definitionKey, scope: scope) { (definition:Definition<ObjectType>) in
             definition.initClosure = initClosure
@@ -339,12 +335,14 @@ open class Assembly: AssemblyInternal {
     ///
     fileprivate func define<ObjectType: InjectableObject, ResultType: InjectableObject>(
         key simpleKey: String = #function,
-        definitionKey: String = #function,
+        definitionKey simpleDefinitionKey: String = #function,
         scope: Scope = .objectGraph,
         definitionClosure: DefinitionClosure<ObjectType>? = nil) -> ResultType {
         
         // Objects are stored in context by key made of Assembly class name and name of var or method
         let key: String = String(reflecting: self).replacingOccurrences(of: ".", with: "")+simpleKey
+        let definitionKey: String = String(reflecting: self).replacingOccurrences(of: ".", with: "")+simpleDefinitionKey
+        
         var result:ObjectType
 
         guard let context = self.context else {
@@ -352,7 +350,7 @@ open class Assembly: AssemblyInternal {
         }
 
         // First of all it checks if there's substitution for this var or method
-        if let substitutionClosure = self.substitutions[definitionKey] {
+        if let substitutionClosure = self.context.substitutions[definitionKey] {
             
             let substitutionObject = substitutionClosure()
             guard let object = substitutionObject as? ResultType else {
@@ -362,7 +360,7 @@ open class Assembly: AssemblyInternal {
 
             
         // Next check for existing singletons
-        } else if scope == .lazySingleton, let singleton = self.singletons[key] {
+        } else if scope == .lazySingleton, let singleton = self.context.singletons[key] {
             
             result = singleton as! ObjectType
             
@@ -371,31 +369,24 @@ open class Assembly: AssemblyInternal {
             
             result = objectFromStack
 
-        } else if let definition = self.definitions[definitionKey], var object = definition.initObject() {
-            
-            result = object as! ObjectType
-            context.objectGraphStorage[key] = result
-            self.context.zeroDepthInjectionClosures.append {
-                definition.injectObject(object: &object)
-            }
-        // Creating and initializing object
         } else {
 
             // Create Definition object to store injections and dependencies information
             let definition = Definition<ObjectType>()
             definitionClosure?(definition)
-            self.definitions[definitionKey] = definition
-            
+
+            context.objectGraphStackDepth += 1
             guard var object = definition.initObject() else {
                 fatalError("Failed to initialize object")
             }
+            context.objectGraphStackDepth -= 1
             
             // Object is created. It's stores in the object graph with it's key
             context.objectGraphStorage[key] = object
             // Going deeper to 'stack'.
             // Injections of this object will resolve dependencies recurently using objects from graph
             context.objectGraphStackDepth += 1
-            definition.injectObject(object: &object)
+            object = definition.injectObject(object: object)
             context.objectGraphStackDepth -= 1
 
             result = object as! ObjectType
@@ -403,20 +394,13 @@ open class Assembly: AssemblyInternal {
         
         // When recursion is finished, remove all objects from objectGraph
         if context.objectGraphStackDepth == 0 {
-            while let closure = self.context.zeroDepthInjectionClosures.popLast() {
-                context.objectGraphStorage[key] = result
-                context.objectGraphStackDepth += 1
-                closure()
-                context.objectGraphStackDepth -= 1
-            }
             context.objectGraphStorage.removeAll()
-            definitions.removeAll()
         }
 
         // And save singletons
-        if self.singletons[key] == nil, scope == .lazySingleton {
+        if self.context.singletons[key] == nil, scope == .lazySingleton {
             
-            self.singletons[key] = result
+            self.context.singletons[key] = result
         }
         
         guard let finalResult = result as? ResultType else {
@@ -431,7 +415,7 @@ open class Assembly: AssemblyInternal {
 internal protocol DefinitionInternal {
 
     func initObject() -> InjectableObject?
-    func injectObject(object: inout InjectableObject) -> Void
+    func injectObject(object: InjectableObject) -> InjectableObject
 }
 
 /// Definition object is used to store initialization and injection closures
@@ -441,24 +425,26 @@ public final class Definition<ObjectType: InjectableObject>: DefinitionInternal 
     public var injectClosure: ObjectInjectClosure<ObjectType>?
 
     func initObject() -> InjectableObject? {
-        
+
         return self.initClosure?()
     }
-    
-    func injectObject(object: inout InjectableObject) -> Void {
-        
-        guard var injectableObject = object as? ObjectType else {
-            
-            return
+
+    func injectObject(object: InjectableObject) -> InjectableObject {
+
+        guard let injectableObject = object as? ObjectType else {
+            fatalError()
         }
-        
-        self.injectClosure?(&injectableObject)
-        object = injectableObject
+
+        guard let actualInjectClosure = self.injectClosure else {
+            return object
+        }
+
+        return actualInjectClosure(injectableObject)
     }
 }
 
 public typealias ObjectInitClosure<ObjectType: InjectableObject> = () -> ObjectType
-public typealias ObjectInjectClosure<ObjectType: InjectableObject> = (_ object: inout ObjectType) -> Void
+public typealias ObjectInjectClosure<ObjectType: InjectableObject> = (_ object: ObjectType) -> ObjectType
 public typealias DefinitionClosure<ObjectType: InjectableObject> = (_ definition: Definition<ObjectType>) -> Void
 public typealias SubstitutionClosure<ObjectType: InjectableObject> = () -> ObjectType
 internal typealias UntypedPatchClosure = () -> InjectableObject

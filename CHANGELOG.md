@@ -2,12 +2,25 @@
 All notable changes to this project will be documented in this file.
 
 #### 1.x Releases
-- `1.3.x` Releases - [1.3.0](#130)
+- `1.4.x` Releases - [1.4.0](#140)
+- `1.3.x` Releases - [1.3.0](#130) | [1.3.1](#131) | [1.3.2](#132) | [1.3.3](#133)
 - `1.2.x` Releases - [1.2.0](#120)
 - `1.1.x` Releases - [1.1.0](#110) | [1.1.1](#111)
 - `1.0.x` Releases - [1.0.0](#100)
 
 ---
+## [1.4.0](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.4.0)
+Released on 2017-10-23
+
+#### Updated
+- !Breaking changes! Decided to replaced 'inout' closure variable type with return value. To fix issue with NSObject release. (Thanx to @alekseykolchanov for Pull Request)
+- @alekseykolchanov advised to remove 'Definition Cache'
+- Moved singletons and substitutions storages to the context
+
+#### Fixed
+- [Issue #14. Weird NSObject dealloc with Swift 4](https://github.com/AndreyZarembo/EasyDi/issues/14)
+
+
 ## [1.3.3](https://github.com/AndreyZarembo/EasyDi/releases/tag/1.3.3)
 Released on 2017-07-24
 

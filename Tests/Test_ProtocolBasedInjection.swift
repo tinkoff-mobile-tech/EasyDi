@@ -26,6 +26,7 @@ class Test_ProtocolInjection: XCTestCase {
         var testObject: TestProtocol {
             return define(init: TestObject()) {
                 $0.intParameter = 10
+                return $0
             }
         }
     }

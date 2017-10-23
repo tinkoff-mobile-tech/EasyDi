@@ -37,6 +37,7 @@ class Test_Substitutions: XCTestCase {
             return define(init: TestObject()) {
                 $0.intParameter = 10
                 $0.testChild = self.childTestObject
+                return $0
             }
         }
         
@@ -47,6 +48,7 @@ class Test_Substitutions: XCTestCase {
         var childTestObject: ChildTestSubstitutionObject {
             return define(init: ChildTestSubstitutionObject()) {
                 $0.parent = self.testObject
+                return $0
             }
         }
     }
@@ -67,7 +69,7 @@ class Test_Substitutions: XCTestCase {
         
         testAssembly.removeSubstitution(for: "testObject")
         let testObject = testAssembly.testObject
-        XCTAssertEqual(SubstitutionedObject.intParameter, 30)
+        XCTAssertEqual(testObject.intParameter, 10)
         XCTAssertTrue(testObject is TestObject)
     }
     
@@ -79,6 +81,7 @@ class Test_Substitutions: XCTestCase {
             return testAssembly.define(init: TestObject2()) { testObj in
                 testObj.intParameter = testAssembly.testInteger
                 testObj.testChild = testAssembly.childTestObject
+                return testObj
             } as ITestSubstitutionObject
         }
         
