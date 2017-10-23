@@ -32,6 +32,16 @@ public final class DIContext {
     var objectGraphStorage: [String: InjectableObject] = [:]
     
     var objectGraphStackDepth:Int = 0
+    
+    /// All lazy singletons are stored here.
+    ///
+    /// Dictionary key is **key** parameter from **define** method
+    var singletons:[String: InjectableObject] = [:]
+    
+    /// Array of applyed substitutions
+    ///
+    /// Dictionary key is **key** parameter from **define** method
+    internal var substitutions:[String: UntypedPatchClosure] = [:]
 
     public init() {}
 
@@ -158,16 +168,6 @@ open class Assembly: AssemblyInternal {
     /// Initialiser
     public required init() {}
 
-    /// All lazy singletons are stored here.
-    ///
-    /// Dictionary key is **key** parameter from **define** method
-    var singletons:[String: InjectableObject] = [:]
-    
-    /// Array of applyed substitutions
-    ///
-    /// Dictionary key is **key** parameter from **define** method
-    internal var substitutions:[String: UntypedPatchClosure] = [:]
-
     /// This method forces assembly to return result of closure instead of the assembly's dependency.
     ///
     /// It's usefull to stub objects and make A / B testing
@@ -176,19 +176,20 @@ open class Assembly: AssemblyInternal {
     /// - parameter substitutionClosure: closure, which returns result object for substitution
     ///
     public func addSubstitution<ObjectType: InjectableObject>(
-        for definitionKey: String,
+        for simpleDefinitionKey: String,
         with substitutionClosure: @escaping SubstitutionClosure<ObjectType>) {
         
-        self.substitutions[definitionKey] = substitutionClosure
+        let definitionKey: String = String(reflecting: self).replacingOccurrences(of: ".", with: "")+simpleDefinitionKey
+        self.context.substitutions[definitionKey] = substitutionClosure
     }
 
     /// This method removes substitution from assembly
     ///
     /// - parameter definitionKey: should exactly match method or property name of substituting dependency
     ///
-    public func removeSubstitution(for definitionKey: String) {
-        
-        self.substitutions[definitionKey] = nil
+    public func removeSubstitution(for simpleDefinitionKey: String) {
+        let definitionKey: String = String(reflecting: self).replacingOccurrences(of: ".", with: "")+simpleDefinitionKey
+        self.context.substitutions[definitionKey] = nil
     }
 
     /// The method defines return-only placeholder for object.
@@ -334,12 +335,14 @@ open class Assembly: AssemblyInternal {
     ///
     fileprivate func define<ObjectType: InjectableObject, ResultType: InjectableObject>(
         key simpleKey: String = #function,
-        definitionKey: String = #function,
+        definitionKey simpleDefinitionKey: String = #function,
         scope: Scope = .objectGraph,
         definitionClosure: DefinitionClosure<ObjectType>? = nil) -> ResultType {
         
         // Objects are stored in context by key made of Assembly class name and name of var or method
         let key: String = String(reflecting: self).replacingOccurrences(of: ".", with: "")+simpleKey
+        let definitionKey: String = String(reflecting: self).replacingOccurrences(of: ".", with: "")+simpleDefinitionKey
+        
         var result:ObjectType
 
         guard let context = self.context else {
@@ -347,7 +350,7 @@ open class Assembly: AssemblyInternal {
         }
 
         // First of all it checks if there's substitution for this var or method
-        if let substitutionClosure = self.substitutions[definitionKey] {
+        if let substitutionClosure = self.context.substitutions[definitionKey] {
             
             let substitutionObject = substitutionClosure()
             guard let object = substitutionObject as? ResultType else {
@@ -357,7 +360,7 @@ open class Assembly: AssemblyInternal {
 
             
         // Next check for existing singletons
-        } else if scope == .lazySingleton, let singleton = self.singletons[key] {
+        } else if scope == .lazySingleton, let singleton = self.context.singletons[key] {
             
             result = singleton as! ObjectType
             
@@ -395,9 +398,9 @@ open class Assembly: AssemblyInternal {
         }
 
         // And save singletons
-        if self.singletons[key] == nil, scope == .lazySingleton {
+        if self.context.singletons[key] == nil, scope == .lazySingleton {
             
-            self.singletons[key] = result
+            self.context.singletons[key] = result
         }
         
         guard let finalResult = result as? ResultType else {

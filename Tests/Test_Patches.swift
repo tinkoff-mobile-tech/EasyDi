@@ -69,7 +69,7 @@ class Test_Substitutions: XCTestCase {
         
         testAssembly.removeSubstitution(for: "testObject")
         let testObject = testAssembly.testObject
-        XCTAssertEqual(SubstitutionedObject.intParameter, 30)
+        XCTAssertEqual(testObject.intParameter, 10)
         XCTAssertTrue(testObject is TestObject)
     }
     

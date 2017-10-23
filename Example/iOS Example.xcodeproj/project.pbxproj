@@ -68,6 +68,20 @@
 			remoteGlobalIDString = C3614B3B1F1C8AE900B1F4A1;
 			remoteInfo = "EasyDi-iOS-Tests";
 		};
+		C37B368B1F9E8B1C00BFF605 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3614AE21F1C7EB700B1F4A1 /* EasyDi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C37DEA181F1E9AA000279AD3;
+			remoteInfo = "EasyDi-macOS";
+		};
+		C37B368D1F9E8B1C00BFF605 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3614AE21F1C7EB700B1F4A1 /* EasyDi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C37DEA241F1E9AE500279AD3;
+			remoteInfo = "EasyDi_macOS-Tests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -155,6 +169,8 @@
 			children = (
 				C3614AE71F1C7EB700B1F4A1 /* EasyDi.framework */,
 				C3614B621F1D1D8400B1F4A1 /* EasyDi-iOS-Tests.xctest */,
+				C37B368C1F9E8B1C00BFF605 /* EasyDi.framework */,
+				C37B368E1F9E8B1C00BFF605 /* EasyDi_macOS-Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -351,6 +367,20 @@
 			fileType = wrapper.cfbundle;
 			path = "EasyDi-iOS-Tests.xctest";
 			remoteRef = C3614B611F1D1D8400B1F4A1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C37B368C1F9E8B1C00BFF605 /* EasyDi.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = EasyDi.framework;
+			remoteRef = C37B368B1F9E8B1C00BFF605 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C37B368E1F9E8B1C00BFF605 /* EasyDi_macOS-Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "EasyDi_macOS-Tests.xctest";
+			remoteRef = C37B368D1F9E8B1C00BFF605 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -553,7 +583,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi.example.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -567,7 +597,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi.example.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
