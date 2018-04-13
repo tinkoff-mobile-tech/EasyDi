@@ -40,9 +40,9 @@ script:
     fi
 
   # Build Example in Debug if specified
-  - if [ $BUILD_EXAMPLE == "YES" ]; then
-      xcodebuild -workspace "$WORKSPACE" -scheme "$EXAMPLE_SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty;
-    fi
+  # - if [ $BUILD_EXAMPLE == "YES" ]; then
+  #    xcodebuild -workspace "$WORKSPACE" -scheme "$EXAMPLE_SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty;
+  #  fi
 
   # Run `pod lib lint` if specified
   - if [ $POD_LINT == "YES" ]; then
