@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8BEE13521F9A27C800A02331 /* EasyDi.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BEE13501F9A27C800A02331 /* EasyDi.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8BEE13531F9A27C800A02331 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BEE13511F9A27C800A02331 /* Info.plist */; };
 		8BEE13561F9A27EA00A02331 /* EasyDi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEE13551F9A27EA00A02331 /* EasyDi.swift */; };
 		8BEE13571F9A27F200A02331 /* EasyDi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEE13551F9A27EA00A02331 /* EasyDi.swift */; };
 		C3614B541F1C8B6800B1F4A1 /* Test_Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B451F1C8B5F00B1F4A1 /* Test_Context.swift */; };
@@ -28,6 +27,8 @@
 		C37DEA341F1E9B2100279AD3 /* Test_ProtocolBasedInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B491F1C8B5F00B1F4A1 /* Test_ProtocolBasedInjection.swift */; };
 		C37DEA351F1E9B2100279AD3 /* Test_Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B4A1F1C8B5F00B1F4A1 /* Test_Scope.swift */; };
 		C37DEA361F1E9B2100279AD3 /* Test_StructsInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B4B1F1C8B5F00B1F4A1 /* Test_StructsInjection.swift */; };
+		D2B16C972123116500CF69E8 /* Test_ImplicitlyUnwrappedOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B16C962123116500CF69E8 /* Test_ImplicitlyUnwrappedOptional.swift */; };
+		D2B16C982123116500CF69E8 /* Test_ImplicitlyUnwrappedOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B16C962123116500CF69E8 /* Test_ImplicitlyUnwrappedOptional.swift */; };
 		E6DCF5C61F2F62A600D9F8BC /* Test_CrossAssemblyInjections_SingletonCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DCF5C41F2F62A000D9F8BC /* Test_CrossAssemblyInjections_SingletonCycle.swift */; };
 		E6DCF5C71F2F62A700D9F8BC /* Test_CrossAssemblyInjections_SingletonCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DCF5C41F2F62A000D9F8BC /* Test_CrossAssemblyInjections_SingletonCycle.swift */; };
 /* End PBXBuildFile section */
@@ -68,6 +69,7 @@
 		C37DEA1B1F1E9AA000279AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C37DEA241F1E9AE500279AD3 /* EasyDi_macOS-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "EasyDi_macOS-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C37DEA281F1E9AE500279AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2B16C962123116500CF69E8 /* Test_ImplicitlyUnwrappedOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test_ImplicitlyUnwrappedOptional.swift; sourceTree = "<group>"; };
 		E6DCF5C41F2F62A000D9F8BC /* Test_CrossAssemblyInjections_SingletonCycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Test_CrossAssemblyInjections_SingletonCycle.swift; path = Tests/Test_CrossAssemblyInjections_SingletonCycle.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -132,6 +134,7 @@
 				C3614B471F1C8B5F00B1F4A1 /* Test_Injections.swift */,
 				C3614B481F1C8B5F00B1F4A1 /* Test_Patches.swift */,
 				C3614B491F1C8B5F00B1F4A1 /* Test_ProtocolBasedInjection.swift */,
+				D2B16C962123116500CF69E8 /* Test_ImplicitlyUnwrappedOptional.swift */,
 				C3614B4A1F1C8B5F00B1F4A1 /* Test_Scope.swift */,
 				C3614B4B1F1C8B5F00B1F4A1 /* Test_StructsInjection.swift */,
 			);
@@ -332,7 +335,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BEE13531F9A27C800A02331 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +361,7 @@
 			files = (
 				C3614B571F1C8B6800B1F4A1 /* Test_Patches.swift in Sources */,
 				C3614B551F1C8B6800B1F4A1 /* Test_CrossAssemblyInjections.swift in Sources */,
+				D2B16C972123116500CF69E8 /* Test_ImplicitlyUnwrappedOptional.swift in Sources */,
 				C3614B591F1C8B6800B1F4A1 /* Test_Scope.swift in Sources */,
 				C3614B541F1C8B6800B1F4A1 /* Test_Context.swift in Sources */,
 				C3614B561F1C8B6800B1F4A1 /* Test_Injections.swift in Sources */,
@@ -390,6 +393,7 @@
 			files = (
 				C37DEA361F1E9B2100279AD3 /* Test_StructsInjection.swift in Sources */,
 				C37DEA331F1E9B2100279AD3 /* Test_Patches.swift in Sources */,
+				D2B16C982123116500CF69E8 /* Test_ImplicitlyUnwrappedOptional.swift in Sources */,
 				C37DEA311F1E9B2100279AD3 /* Test_CrossAssemblyInjections.swift in Sources */,
 				C37DEA321F1E9B2100279AD3 /* Test_Injections.swift in Sources */,
 				C37DEA301F1E9B2100279AD3 /* Test_Context.swift in Sources */,
