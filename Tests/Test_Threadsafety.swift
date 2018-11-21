@@ -42,16 +42,18 @@ final class Test_Threadsafety: XCTestCase {
 
         // Явно создаю 2 потока, т.к. не известно на скольких потоках будет работать concurrent dispatch queue
 
-        let expectation1 = expectation(description: "Thread-1")
-        Thread.detachNewThread {
+        let queue1 = DispatchQueue(label: "Queue1")
+        let expectation1 = expectation(description: "Queue-1")
+        queue1.async {
             for _ in 1 ..< 10 {
                 _ = assembly.someObject
             }
             expectation1.fulfill()
         }
 
-        let expectation2 = expectation(description: "Thread-2")
-        Thread.detachNewThread {
+        let queue2 = DispatchQueue(label: "Queue2")
+        let expectation2 = expectation(description: "Queue-2")
+        queue2.async {
             for _ in 1 ..< 10 {
                 _ = assembly.someObject
             }
