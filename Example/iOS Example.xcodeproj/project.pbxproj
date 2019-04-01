@@ -12,7 +12,6 @@
 		C3614B0F1F1C7F1D00B1F4A1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3614AF01F1C7F1D00B1F4A1 /* LaunchScreen.xib */; };
 		C3614B101F1C7F1D00B1F4A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3614AF21F1C7F1D00B1F4A1 /* Main.storyboard */; };
 		C3614B111F1C7F1D00B1F4A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3614AF41F1C7F1D00B1F4A1 /* Images.xcassets */; };
-		C3614B121F1C7F1D00B1F4A1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3614AF51F1C7F1D00B1F4A1 /* Info.plist */; };
 		C3614B131F1C7F1D00B1F4A1 /* StripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614AF91F1C7F1D00B1F4A1 /* StripViewController.swift */; };
 		C3614B141F1C7F1D00B1F4A1 /* XKCDStripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614AFC1F1C7F1D00B1F4A1 /* XKCDStripCell.swift */; };
 		C3614B151F1C7F1D00B1F4A1 /* XKCDInfiniteScrollFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614AFD1F1C7F1D00B1F4A1 /* XKCDInfiniteScrollFooterView.swift */; };
@@ -27,7 +26,6 @@
 		C3614B1E1F1C7F1D00B1F4A1 /* XKCDService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B081F1C7F1D00B1F4A1 /* XKCDService.swift */; };
 		C3614B1F1F1C7F1D00B1F4A1 /* IURLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B091F1C7F1D00B1F4A1 /* IURLService.swift */; };
 		C3614B201F1C7F1D00B1F4A1 /* URLSession+IURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B0A1F1C7F1D00B1F4A1 /* URLSession+IURLSession.swift */; };
-		C3614B231F1C7F1D00B1F4A1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3614B0E1F1C7F1D00B1F4A1 /* Info.plist */; };
 		C3614B321F1C89A700B1F4A1 /* Test_JSONAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B0C1F1C7F1D00B1F4A1 /* Test_JSONAPIClient.swift */; };
 		C3614B331F1C89A700B1F4A1 /* Test_XKCDService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B0D1F1C7F1D00B1F4A1 /* Test_XKCDService.swift */; };
 /* End PBXBuildFile section */
@@ -334,6 +332,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -390,11 +389,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3614B231F1C7F1D00B1F4A1 /* Info.plist in Resources */,
 				C3614B0F1F1C7F1D00B1F4A1 /* LaunchScreen.xib in Resources */,
 				C3614B101F1C7F1D00B1F4A1 /* Main.storyboard in Resources */,
 				C3614B111F1C7F1D00B1F4A1 /* Images.xcassets in Resources */,
-				C3614B121F1C7F1D00B1F4A1 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,7 +607,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi.example.ios.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS Example.app/iOS Example";
 			};
 			name = Debug;
@@ -624,7 +621,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi.example.ios.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS Example.app/iOS Example";
 			};
 			name = Release;
