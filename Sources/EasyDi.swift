@@ -263,13 +263,10 @@ open class Assembly: AssemblyInternal {
         into initClosure: @autoclosure @escaping () -> ObjectType,
         inject injectClosure: ObjectInjectClosure<ObjectType>? = nil ) {
         
-        let _: ObjectType = self.define(
-            key: key,
-            definitionKey: definitionKey,
-            scope: scope,
-            init: initClosure,
-            inject: injectClosure
-        )
+        let _: ObjectType = define(key: key, definitionKey: definitionKey, scope: scope) { (definition:Definition<ObjectType>) in
+            definition.initClosure = initClosure
+            definition.injectClosure = injectClosure
+        }
     }
     
     /// This method defines object, which will be initialized and injected by assembly.
