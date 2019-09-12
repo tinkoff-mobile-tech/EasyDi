@@ -137,5 +137,41 @@ class Test_Scope: XCTestCase {
         XCTAssertNotNil(prototypeInstance1.child?.parent)
         XCTAssertNotEqual(prototypeInstance1.child?.parent, prototypeInstance1)
     }
+    
+    // WEAK SINGLETON TESTS
+    
+    func testWeakSingleton() {
+        class TestSingletonObject: NSObject {
+            
+            @objc static var initCallsCount: Int = 0
+            override init() {
+                super.init()
+                TestSingletonObject.initCallsCount += 1
+            }
+            
+            @objc var injected: Bool = false
+        }
+        
+        class SingletonAssembly: Assembly {
+            
+            var singleton: TestSingletonObject {
+                return define(scope: .weakSingleton, init: TestSingletonObject()) {
+                    $0.injected = true
+                    return $0
+                }
+            }
+        }
+        
+        weak var weakSingletonInstance = SingletonAssembly.instance().singleton
+        XCTAssertNil(weakSingletonInstance)
+        
+        let singletonInstance1 = SingletonAssembly.instance().singleton
+        let singletonInstance2 = SingletonAssembly.instance().singleton
+        XCTAssertTrue(singletonInstance1.injected)
+
+        XCTAssertTrue(singletonInstance2.injected)
+        XCTAssertEqual(singletonInstance1, singletonInstance2)
+        XCTAssertEqual(TestSingletonObject.initCallsCount, 2)
+    }
 }
 

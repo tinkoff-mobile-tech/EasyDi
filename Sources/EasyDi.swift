@@ -17,6 +17,10 @@ public struct DIContextEmptyLocker {
     func unlock() {}
 }
 
+struct WeakSingletonWrapper {
+    weak var instance: AnyObject?
+}
+
 extension NSRecursiveLock: DIContextLocker {
 }
 
@@ -48,6 +52,7 @@ public final class DIContext {
     ///
     /// Dictionary key is **key** parameter from **define** method
     var singletons: [String: InjectableObject] = [:]
+    var weakSingletons: [String: WeakSingletonWrapper] = [:]
     
     /// Array of applyed substitutions
     ///
@@ -132,6 +137,13 @@ public enum Scope {
     ///
     /// [Singleton]  description contains short example with memory graph illustration
     case lazySingleton
+    
+    /// [Weak Singleton]: https://github.com/AliSoftware/Dip/wiki/scopes
+    ///
+    /// Same as lazy, but context stores weak reference on the instance.
+    ///
+    /// [Weak Singleton]
+    case weakSingleton
 }
 
 
@@ -371,14 +383,17 @@ open class Assembly: AssemblyInternal {
         } else if scope == .lazySingleton, let singleton = context.singletons[key] {
 
             result = singleton as! ObjectType
-            
+        
+        // Check if there is alive weak singletons
+        } else if scope == .weakSingleton, let wrapper = context.weakSingletons[key], let weakSingleton = wrapper.instance {
+            result = weakSingleton as! ObjectType
+        
         // And trying to return object from graph
         } else if let objectFromStack = context.objectGraphStorage[key],
             scope != .prototype,
             let unwrappedObject = objectFromStack as? ObjectType {
             result = unwrappedObject
         } else {
-
             // Create Definition object to store injections and dependencies information
             let definition = Definition<ObjectType>()
             definitionClosure?(definition)
@@ -409,6 +424,16 @@ open class Assembly: AssemblyInternal {
         if context.singletons[key] == nil, scope == .lazySingleton {
             context.singletons[key] = result
         }
+        
+        if context.weakSingletons[key] == nil, scope == .weakSingleton {
+            context.weakSingletons[key] = WeakSingletonWrapper(instance: result as AnyObject)
+        }
+        
+        if var wrapper = context.weakSingletons[key], scope == .weakSingleton, wrapper.instance == nil {
+            wrapper.instance = result as AnyObject
+            context.weakSingletons[key] = wrapper
+        }
+
         
         guard let finalResult = result as? ResultType else {
             fatalError("Failed to build result object. Expected \(ResultType.self) received: \(result)")

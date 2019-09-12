@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11EDD63C232A8434004AB8AF /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EDD63A232A83CF004AB8AF /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift */; };
+		11EDD63D232A8437004AB8AF /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EDD63A232A83CF004AB8AF /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift */; };
 		8BEE13521F9A27C800A02331 /* EasyDi.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BEE13501F9A27C800A02331 /* EasyDi.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8BEE13561F9A27EA00A02331 /* EasyDi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEE13551F9A27EA00A02331 /* EasyDi.swift */; };
 		8BEE13571F9A27F200A02331 /* EasyDi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEE13551F9A27EA00A02331 /* EasyDi.swift */; };
@@ -52,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11EDD63A232A83CF004AB8AF /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test_CrossAssemblyInjections_WeakSingletonCycle.swift; sourceTree = "<group>"; };
 		8BEE13501F9A27C800A02331 /* EasyDi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyDi.h; sourceTree = "<group>"; };
 		8BEE13511F9A27C800A02331 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BEE13551F9A27EA00A02331 /* EasyDi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyDi.swift; sourceTree = "<group>"; };
@@ -133,6 +136,7 @@
 				C3614B451F1C8B5F00B1F4A1 /* Test_Context.swift */,
 				C3614B461F1C8B5F00B1F4A1 /* Test_CrossAssemblyInjections.swift */,
 				E6DCF5C41F2F62A000D9F8BC /* Test_CrossAssemblyInjections_SingletonCycle.swift */,
+				11EDD63A232A83CF004AB8AF /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift */,
 				C3614B471F1C8B5F00B1F4A1 /* Test_Injections.swift */,
 				C3614B481F1C8B5F00B1F4A1 /* Test_Patches.swift */,
 				C3614B491F1C8B5F00B1F4A1 /* Test_ProtocolBasedInjection.swift */,
@@ -372,6 +376,7 @@
 				A5ABB84321A5522400C96320 /* Test_Threadsafety.swift in Sources */,
 				E6DCF5C61F2F62A600D9F8BC /* Test_CrossAssemblyInjections_SingletonCycle.swift in Sources */,
 				C3614B581F1C8B6800B1F4A1 /* Test_ProtocolBasedInjection.swift in Sources */,
+				11EDD63C232A8434004AB8AF /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -402,6 +407,7 @@
 				C37DEA321F1E9B2100279AD3 /* Test_Injections.swift in Sources */,
 				C37DEA301F1E9B2100279AD3 /* Test_Context.swift in Sources */,
 				C37DEA341F1E9B2100279AD3 /* Test_ProtocolBasedInjection.swift in Sources */,
+				11EDD63D232A8437004AB8AF /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift in Sources */,
 				E6DCF5C71F2F62A700D9F8BC /* Test_CrossAssemblyInjections_SingletonCycle.swift in Sources */,
 				C37DEA351F1E9B2100279AD3 /* Test_Scope.swift in Sources */,
 			);
@@ -438,7 +444,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi.ios.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -457,7 +463,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi.ios.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -588,7 +594,7 @@
 				PRODUCT_NAME = EasyDi;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -610,7 +616,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi;
 				PRODUCT_NAME = EasyDi;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -638,7 +644,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -665,7 +671,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -686,7 +692,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -707,7 +713,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
