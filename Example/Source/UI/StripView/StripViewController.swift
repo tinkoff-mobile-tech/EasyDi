@@ -76,7 +76,7 @@ class StripViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @objc func setTitleState(visible: Bool) {
-        UIView.animate(withDuration: 0.5,delay: 0, options: [UIViewAnimationOptions.beginFromCurrentState], animations: {
+        UIView.animate(withDuration: 0.5,delay: 0, options: [UIView.AnimationOptions.beginFromCurrentState], animations: {
             self.stripTitleView?.alpha = self.titleIsVisible ? 1 : 0
         }, completion: { _ in
             self.titleIsVisible = visible

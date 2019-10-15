@@ -12,7 +12,6 @@
 		C3614B0F1F1C7F1D00B1F4A1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3614AF01F1C7F1D00B1F4A1 /* LaunchScreen.xib */; };
 		C3614B101F1C7F1D00B1F4A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3614AF21F1C7F1D00B1F4A1 /* Main.storyboard */; };
 		C3614B111F1C7F1D00B1F4A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3614AF41F1C7F1D00B1F4A1 /* Images.xcassets */; };
-		C3614B121F1C7F1D00B1F4A1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3614AF51F1C7F1D00B1F4A1 /* Info.plist */; };
 		C3614B131F1C7F1D00B1F4A1 /* StripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614AF91F1C7F1D00B1F4A1 /* StripViewController.swift */; };
 		C3614B141F1C7F1D00B1F4A1 /* XKCDStripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614AFC1F1C7F1D00B1F4A1 /* XKCDStripCell.swift */; };
 		C3614B151F1C7F1D00B1F4A1 /* XKCDInfiniteScrollFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614AFD1F1C7F1D00B1F4A1 /* XKCDInfiniteScrollFooterView.swift */; };
@@ -27,7 +26,6 @@
 		C3614B1E1F1C7F1D00B1F4A1 /* XKCDService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B081F1C7F1D00B1F4A1 /* XKCDService.swift */; };
 		C3614B1F1F1C7F1D00B1F4A1 /* IURLService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B091F1C7F1D00B1F4A1 /* IURLService.swift */; };
 		C3614B201F1C7F1D00B1F4A1 /* URLSession+IURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B0A1F1C7F1D00B1F4A1 /* URLSession+IURLSession.swift */; };
-		C3614B231F1C7F1D00B1F4A1 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3614B0E1F1C7F1D00B1F4A1 /* Info.plist */; };
 		C3614B321F1C89A700B1F4A1 /* Test_JSONAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B0C1F1C7F1D00B1F4A1 /* Test_JSONAPIClient.swift */; };
 		C3614B331F1C89A700B1F4A1 /* Test_XKCDService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3614B0D1F1C7F1D00B1F4A1 /* Test_XKCDService.swift */; };
 /* End PBXBuildFile section */
@@ -313,7 +311,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = AndreyZarembo;
 				TargetAttributes = {
 					C3614ACC1F1C7E8500B1F4A1 = {
@@ -331,7 +329,7 @@
 			};
 			buildConfigurationList = C3614AC81F1C7E8500B1F4A1 /* Build configuration list for PBXProject "iOS Example" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -390,11 +388,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3614B231F1C7F1D00B1F4A1 /* Info.plist in Resources */,
 				C3614B0F1F1C7F1D00B1F4A1 /* LaunchScreen.xib in Resources */,
 				C3614B101F1C7F1D00B1F4A1 /* Main.storyboard in Resources */,
 				C3614B111F1C7F1D00B1F4A1 /* Images.xcassets in Resources */,
-				C3614B121F1C7F1D00B1F4A1 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,21 +478,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -525,6 +530,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -533,21 +539,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -568,6 +583,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -583,7 +599,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi.example.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -597,7 +613,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi.example.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -610,7 +626,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi.example.ios.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS Example.app/iOS Example";
 			};
 			name = Debug;
@@ -624,7 +640,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.andreyzarembo.easydi.example.ios.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS Example.app/iOS Example";
 			};
 			name = Release;
