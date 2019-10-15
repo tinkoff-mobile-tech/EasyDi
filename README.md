@@ -13,7 +13,7 @@ Effective DI library for rapid development in 200 lines of code.
 
 ## Requirements
 
-Swift 5+, iOS 10.2+
+Swift 5+, iOS 10.3+
 
 ## Example
 
