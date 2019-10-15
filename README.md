@@ -5,7 +5,7 @@
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/EasyDi.svg?style=flat)](http://cocoapods.org/pods/EasyDi)
 [![Platform](https://img.shields.io/cocoapods/p/EasyDi.svg?style=flat)](http://cocoapods.org/pods/EasyDi)
-[![Swift Version](https://img.shields.io/badge/Swift-3.0--4.0-F16D39.svg?style=flat)](https://developer.apple.com/swift)
+[![Swift Version](https://img.shields.io/badge/Swift-5.0-F16D39.svg?style=flat)](https://developer.apple.com/swift)
 
 ![](Images/easy_di_logo.png)
 
@@ -13,7 +13,7 @@ Effective DI library for rapid development in 200 lines of code.
 
 ## Requirements
 
-Swift 3 or 4, iOS 8+
+Swift 5+, iOS 10.2+
 
 ## Example
 
@@ -37,6 +37,12 @@ e-mail: [andrey.zarembo@gmail.com](mailto:andrey.zarembo@gmail.com)
 twitter: [@andreyzarembo](https://twitter.com/AndreyZarembo)
 
 telegram: [@andreyzarembo](https://telegram.me/andreyzarembo)
+
+Alexey Markov
+
+e-mail: [whitewillrock@gmail.com](mailto:whitewillrock@gmail.com)
+
+telegram: [@big_bada_booooom](https://telegram.me/big_bada_booooom)
 
 ## License
 
