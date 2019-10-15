@@ -13,7 +13,7 @@ Effective DI library for rapid development in 200 lines of code.
 
 ## Requirements
 
-Swift 3 or 4, iOS 8+
+Swift 5+, iOS 10.2+
 
 ## Example
 
@@ -37,6 +37,12 @@ e-mail: [andrey.zarembo@gmail.com](mailto:andrey.zarembo@gmail.com)
 twitter: [@andreyzarembo](https://twitter.com/AndreyZarembo)
 
 telegram: [@andreyzarembo](https://telegram.me/andreyzarembo)
+
+Alexey Markov
+
+e-mail: [whitewillrock@gmail.com](mailto:whitewillrock@gmail.com)
+
+telegram: [@big_bada_booooom](https://telegram.me/big_bada_booooom)
 
 ## License
 
