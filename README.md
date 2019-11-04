@@ -461,3 +461,11 @@ For this case, EasyDi has 'keys' with which you can return the same object from 
 ```
 
 Here, to implement dependencies in the ViewController, the inject method is used, which is linked by the key with the 'view' property. Now, this property returns the object passed to the 'inject' method. Thus, the VIPER module assembly is initiated with 'inject' method.
+
+## Road map
+- [x] drop old swift version
+- [x] Swift5+
+- [x] weak singleton
+- [ ] update docs
+- [ ] SPM
+- [ ] to be continue
