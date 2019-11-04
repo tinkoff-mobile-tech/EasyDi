@@ -10,18 +10,14 @@ import XCTest
 import EasyDi
 
 class Test_Injection: XCTestCase {
-
-    class TestObject {
-        
+    fileprivate class TestObject {
         var intParameter: Int = 0
         var stringParamter: String = ""
         var arrayParameter: [String] = []
-        
         weak var selfParameter: TestObject? = nil
     }
     
     func testInitWithInjection() {
-        
         class TestAssembly: Assembly {
             
             var testObject: TestObject {
@@ -40,9 +36,8 @@ class Test_Injection: XCTestCase {
         XCTAssertEqual(testObject.stringParamter, "TestString")
         XCTAssertEqual(testObject.arrayParameter, ["a","b","c"])
     }
- 
+    
     func testInjectionInExistingObject(){
-        
         class TestAssembly: Assembly {
             func inject(into testObject: TestObject) {
                 let _:TestObject = define(init: testObject) {
@@ -54,7 +49,6 @@ class Test_Injection: XCTestCase {
             }
         }
         
-        // Test
         let testObject = TestObject()
         TestAssembly.instance().inject(into: testObject)
         XCTAssertEqual(testObject.intParameter, 10)
@@ -63,9 +57,7 @@ class Test_Injection: XCTestCase {
     }
     
     func testReinjectionWithKey() {
-        
         class TestAssembly: Assembly {
-            
             func inject(into testObject: TestObject) {
                 defineInjection(key: "testObject", into: testObject) {
                     $0.intParameter = 10
@@ -81,13 +73,11 @@ class Test_Injection: XCTestCase {
             }
         }
         
-        // Test
         let testObject = TestObject()
         TestAssembly.instance().inject(into: testObject)
         XCTAssertEqual(testObject.intParameter, 10)
         XCTAssertEqual(testObject.stringParamter, "TestString")
         XCTAssertEqual(testObject.arrayParameter, ["a","b","c"])
         XCTAssertTrue(testObject === testObject.selfParameter)
-        
     }
 }

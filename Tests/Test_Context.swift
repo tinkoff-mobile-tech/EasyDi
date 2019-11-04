@@ -10,11 +10,8 @@ import XCTest
 import EasyDi
 
 class Test_Context: XCTestCase {
-
     func testDefaultContext() {
-        
-        class TestAssembly: Assembly {
-        }
+        class TestAssembly: Assembly { }
         
         let assemblyInstance1 = TestAssembly.instance()
         let assemblyInstance2 = TestAssembly.instance()
@@ -22,11 +19,8 @@ class Test_Context: XCTestCase {
         XCTAssertTrue(assemblyInstance1 === assemblyInstance2)
     }
     
-    
     func testSameContext() {
-        
-        class TestAssembly: Assembly {
-        }
+        class TestAssembly: Assembly { }
         
         let context: DIContext = DIContext()
         let assemblyInstance1 = TestAssembly.instance(from: context)
@@ -36,9 +30,7 @@ class Test_Context: XCTestCase {
     }
     
     func testDifferentContexts() {
-        
-        class TestAssembly: Assembly {
-        }
+        class TestAssembly: Assembly { }
         
         let assemblyInstance1 = TestAssembly.instance()
         
@@ -47,5 +39,4 @@ class Test_Context: XCTestCase {
         
         XCTAssertFalse(assemblyInstance1 === assemblyInstance2)
     }
-        
 }

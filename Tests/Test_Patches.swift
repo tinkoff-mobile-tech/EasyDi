@@ -9,30 +9,27 @@ import Foundation
 import XCTest
 import EasyDi
 
-protocol ITestSubstitutionObject {
+fileprivate protocol ITestSubstitutionObject {
     var intParameter: Int { get }
     var testChild: ChildTestSubstitutionObject? { get }
 }
 
-class ChildTestSubstitutionObject {
+fileprivate class ChildTestSubstitutionObject {
     var parent: ITestSubstitutionObject?
 }
 
 class Test_Substitutions: XCTestCase {
-    
-    
-    
-    class TestObject: NSObject, ITestSubstitutionObject {
-        @objc var intParameter: Int = 0
-        var testChild: ChildTestSubstitutionObject?
-    }
-    class TestObject2: NSObject, ITestSubstitutionObject {
+    fileprivate class TestObject: NSObject, ITestSubstitutionObject {
         @objc var intParameter: Int = 0
         var testChild: ChildTestSubstitutionObject?
     }
     
-    class TestAssembly: Assembly {
-        
+    fileprivate class TestObject2: NSObject, ITestSubstitutionObject {
+        @objc var intParameter: Int = 0
+        var testChild: ChildTestSubstitutionObject?
+    }
+    
+    fileprivate class TestAssembly: Assembly {
         var testObject: ITestSubstitutionObject {
             return define(init: TestObject()) {
                 $0.intParameter = 10
@@ -54,7 +51,6 @@ class Test_Substitutions: XCTestCase {
     }
     
     func testSubstitutionWithSimpleObject() {
-        
         let context = DIContext()
         let testAssembly = TestAssembly.instance(from: context)
         testAssembly.addSubstitution(for: "testObject") { ()->TestObject in
@@ -74,7 +70,6 @@ class Test_Substitutions: XCTestCase {
     }
     
     func testSubstitutionWithDefinition() {
-        
         let context = DIContext()
         let testAssembly = TestAssembly.instance(from: context)
         testAssembly.addSubstitution(for: "testObject") {
@@ -82,7 +77,7 @@ class Test_Substitutions: XCTestCase {
                 testObj.intParameter = testAssembly.testInteger
                 testObj.testChild = testAssembly.childTestObject
                 return testObj
-            } as ITestSubstitutionObject
+                } as ITestSubstitutionObject
         }
         
         let SubstitutionedObject = testAssembly.testObject

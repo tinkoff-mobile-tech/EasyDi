@@ -1,15 +1,16 @@
 //
-//  Test_CrossAssemblyInjections.swift
+//  Test_CrossAssemblyInjections_WeakSingletonCycle.swift
 //  EasyDi
 //
-//  Created by Andrey Zarembo
+//  Created by a.s.markov on 04.11.2019.
+//  Copyright © 2019 AndreyZarembo. All rights reserved.
 //
 
 import Foundation
 import XCTest
 import EasyDi
 
-class Test_CrossAssemblyInjections: XCTestCase {
+class Test_CrossAssemblyInjections_WeakSingletonCycle: XCTestCase {
     fileprivate class TestObject {
         var childObject: TestChildObject? = nil
         var childObjects: [TestChildObject] = []
@@ -23,8 +24,7 @@ class Test_CrossAssemblyInjections: XCTestCase {
         lazy var testChildObjectAssembly: TestChildObjectAssembly = self.context.assembly()
         
         var testObject: TestObject {
-            return define(init: TestObject()) {
-                
+            return define(scope: .weakSingleton, init: TestObject()) {
                 $0.childObject = self.testChildObjectAssembly.testChildObject
                 $0.childObjects = [
                     self.testChildObjectAssembly.testChildObject,
@@ -57,7 +57,6 @@ class Test_CrossAssemblyInjections: XCTestCase {
     }
     
     func testChildObjectIsCreates() {
-        // Here and next contexts are used not to share any assembly instances between tests
         let context = DIContext()
         let testObject = TestObjectAssembly.instance(from: context).testObject
         XCTAssertNotNil(testObject.childObject)

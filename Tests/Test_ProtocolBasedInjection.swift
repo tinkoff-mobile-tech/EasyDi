@@ -9,20 +9,16 @@ import Foundation
 import XCTest
 import EasyDi
 
-protocol TestProtocol {
-    
+fileprivate protocol TestProtocol {
     var intParameter: Int { get }
 }
 
 class Test_ProtocolInjection: XCTestCase {
-    
-    class TestObject: TestProtocol {
-        
+    fileprivate class TestObject: TestProtocol {
         var intParameter: Int = 0
     }
     
-    class TestAssembly: Assembly {
-        
+    fileprivate class TestAssembly: Assembly {
         var testObject: TestProtocol {
             return define(init: TestObject()) {
                 $0.intParameter = 10

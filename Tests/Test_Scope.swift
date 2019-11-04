@@ -10,13 +10,8 @@ import XCTest
 import EasyDi
 
 class Test_Scope: XCTestCase {
-
-    // Test that Singleton object initializes only once
     func testSingleton() {
-        
-        // SETUP
         class TestSingletonObject: NSObject {
-            
             @objc static var initCallsCount: Int = 0
             override init() {
                 super.init()
@@ -27,7 +22,6 @@ class Test_Scope: XCTestCase {
         }
         
         class SingletonAssembly: Assembly {
-            
             var singleton: TestSingletonObject {
                 return define(scope: .lazySingleton, init: TestSingletonObject()) {
                     $0.injected = true
@@ -36,7 +30,6 @@ class Test_Scope: XCTestCase {
             }
         }
         
-        // TEST
         let singletonInstance1 = SingletonAssembly.instance().singleton
         XCTAssertTrue(singletonInstance1.injected)
         
@@ -46,12 +39,8 @@ class Test_Scope: XCTestCase {
         XCTAssertEqual(TestSingletonObject.initCallsCount, 1)
     }
     
-    
     // Test that ObjectGraph object creates only 1 instance per graph
     func testObjectGraph() {
-        
-        
-        // Setup
         class ParentObject: NSObject {
             
             @objc static var initCallsCount: Int = 0
@@ -83,7 +72,6 @@ class Test_Scope: XCTestCase {
             }
         }
         
-        // Test
         let parentInstance1 = ObjectGraphAssembly.instance().parentObject
         XCTAssertEqual(ParentObject.initCallsCount, 1)
         XCTAssertNotNil(parentInstance1.child)
@@ -96,8 +84,6 @@ class Test_Scope: XCTestCase {
     
     // Test that prototype recreated each time
     func testPrototype() {
-        
-        // Setup
         class PrototypeObject: NSObject {
             
             @objc static var initCallsCount: Int = 0
@@ -128,14 +114,45 @@ class Test_Scope: XCTestCase {
                 }
             }
         }
-
         
-        // Test
         let prototypeInstance1 = ObjectGraphAssembly.instance().prototypeObject
         XCTAssertEqual(PrototypeObject.initCallsCount, 2)
         XCTAssertNotNil(prototypeInstance1.child)
         XCTAssertNotNil(prototypeInstance1.child?.parent)
         XCTAssertNotEqual(prototypeInstance1.child?.parent, prototypeInstance1)
+    }
+    
+    // Test that container stores week reference to the resolved instance
+    func testWeakSingleton() {
+        class WeakSingletonObject: NSObject {
+            @objc static  var initCallsCount: Int = 0
+            override init () {
+                super.init();
+                WeakSingletonObject.initCallsCount += 1
+            }
+            @objc var injected: Bool = false
+        }
+        
+        class WeakSingletonAssembly: Assembly {
+            var weakSingleton: WeakSingletonObject {
+                return define(scope: .weakSingleton, init: WeakSingletonObject()) {
+                    $0.injected = true
+                    return $0
+                }
+            }
+        }
+        
+        weak var weakSingletonInstance = WeakSingletonAssembly.instance().weakSingleton
+        XCTAssertNil(weakSingletonInstance)
+        
+        let firstWeakSingletonInstance = WeakSingletonAssembly.instance().weakSingleton
+        let secondWeakSingletonInstance = WeakSingletonAssembly.instance().weakSingleton
+        
+        XCTAssertTrue(firstWeakSingletonInstance.injected)
+        XCTAssertTrue(secondWeakSingletonInstance.injected)
+        
+        XCTAssertEqual(firstWeakSingletonInstance, secondWeakSingletonInstance)
+        XCTAssertEqual(WeakSingletonObject.initCallsCount, 2)
     }
 }
 

@@ -9,19 +9,17 @@ import Foundation
 import XCTest
 import EasyDi
 
-protocol TestStructsInjectionProtocol {
+fileprivate protocol TestStructsInjectionProtocol {
     var intValue: Int? { get }
     var stringValue: String? { get }
 }
 
-protocol TestStructProtocol {
+fileprivate protocol TestStructProtocol {
     var anotherStruct: TestStructProtocol? { get }
 }
 
 class Test_StructsInjection: XCTestCase {
-    
     func testInjectionIntoStructure() {
-        
         struct TestStruct: TestStructsInjectionProtocol {
             var intValue: Int?
             var stringValue: String?
@@ -86,5 +84,4 @@ class Test_StructsInjection: XCTestCase {
         XCTAssertNotNil(object.anotherStruct)
         XCTAssertNotNil(object.anotherStruct?.anotherStruct)
     }
-    
 }
