@@ -17,7 +17,6 @@ fileprivate class SomeObject: SomeProtocol {
 }
 
 fileprivate class TestAssembly: Assembly {
-
     var someObject: SomeProtocol {
         return define(init: SomeObject()) {
             for i in 0 ..< $0.values.count {
@@ -34,7 +33,6 @@ fileprivate class TestAssembly: Assembly {
 }
 
 final class Test_Threadsafety: XCTestCase {
-
     func test_ThreadSafety() {
 
         let context = DIContext()

@@ -10,23 +10,17 @@ import XCTest
 import EasyDi
 
 class Test_CrossAssemblyInjections_SingletonCycle: XCTestCase {
-    
-    class TestObject {
-        
-        var childObject:TestChildObject? = nil
-        var childObjects:[TestChildObject] = []
+    fileprivate class TestObject {
+        var childObject: TestChildObject? = nil
+        var childObjects: [TestChildObject] = []
     }
     
-    class TestChildObject {
-        
+    fileprivate class TestChildObject {
         weak var parentObject: TestObject? = nil
     }
     
-    class TestObjectAssembly: Assembly {
-        
-        
-        lazy var testChildObjectAssembly:TestChildObjectAssembly = self.context.assembly()
-
+    fileprivate class TestObjectAssembly: Assembly {
+        lazy var testChildObjectAssembly: TestChildObjectAssembly = self.context.assembly()
         var testObject: TestObject {
             return define(scope: .lazySingleton, init: TestObject()) {
                 
@@ -41,9 +35,8 @@ class Test_CrossAssemblyInjections_SingletonCycle: XCTestCase {
         }
     }
     
-    class TestChildObjectAssembly: Assembly {
-        
-        var testObjectAssembly:TestObjectAssembly {
+    fileprivate class TestChildObjectAssembly: Assembly {
+        var testObjectAssembly: TestObjectAssembly {
             return TestObjectAssembly.instance(from: self.context)
         }
         
@@ -70,7 +63,6 @@ class Test_CrossAssemblyInjections_SingletonCycle: XCTestCase {
     }
     
     func testParentObjectAssignedAndValud() {
-        
         let context = DIContext()
         let testObject = TestObjectAssembly.instance(from: context).testObject
         XCTAssertNotNil(testObject.childObject?.parentObject)
@@ -78,14 +70,12 @@ class Test_CrossAssemblyInjections_SingletonCycle: XCTestCase {
     }
     
     func testChildNotRecreated() {
-        
         let context = DIContext()
         let testObject = TestObjectAssembly.instance(from: context).testObject
         XCTAssert(testObject.childObject === testObject.childObjects.first)
     }
     
     func testParentIsSameForAllChildren() {
-        
         let context = DIContext()
         let testObject = TestObjectAssembly.instance(from: context).testObject
         for child in testObject.childObjects {
