@@ -25,9 +25,6 @@ import PackageDescription
 
 let package = Package(
 	name: "EasyDi",
-	platforms: [
-		.iOS(.v10)
-	],
 	products: [
 		.library(name: "EasyDi", targets: ["EasyDi"]),
 	],
