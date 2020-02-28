@@ -18,10 +18,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+// swift-tools-version:5.0
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
 import PackageDescription
 
 let package = Package(
-    name: "EasyDi",
-    dependencies : [],
-    exclude: ["Tests"]
+	name: "EasyDi",
+	products: [
+		.library(name: "EasyDi", targets: ["EasyDi"]),
+	],
+	targets: [
+		.target(name: "EasyDi", path: "Sources")
+	]
 )
