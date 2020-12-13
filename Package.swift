@@ -1,3 +1,4 @@
+// swift-tools-version:5.3
 // Copyright (c) 2017 Andrey Zarembo <andrey.zarembo@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
