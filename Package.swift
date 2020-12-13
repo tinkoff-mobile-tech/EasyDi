@@ -23,6 +23,11 @@ import PackageDescription
 
 let package = Package(
     name: "EasyDi",
+    products: [
+        .library(name: "EasyDi", targets: ["EasyDi"]),
+    ],
     dependencies : [],
-    exclude: ["Tests"]
+    targets: [
+        .target(name: "EasyDi", dependencies:[])
+    ]
 )
