@@ -28,6 +28,6 @@ let package = Package(
     ],
     dependencies : [],
     targets: [
-        .target(name: "EasyDi", dependencies:[])
+        .target(name: "EasyDi", dependencies:[], path: "Sources/")
     ]
 )
