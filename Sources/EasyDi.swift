@@ -417,8 +417,12 @@ open class Assembly: AssemblyInternal {
         }
         
         // And save singletons
-        if context.singletons[key] == nil, scope == .lazySingleton {
-            context.singletons[key] = result
+        if scope == .lazySingleton {
+            if context.singletons[key] == nil {
+                context.singletons[key] = result
+            } else {
+                fatalError("Singleton already exist, inspect your dependencies graph")
+            }
         }
         
         if context.weakSingletons[key] == nil, scope == .weakSingleton {
