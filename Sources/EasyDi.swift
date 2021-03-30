@@ -421,7 +421,13 @@ open class Assembly: AssemblyInternal {
             if context.singletons[key] == nil {
                 context.singletons[key] = result
             } else {
-                fatalError("Singleton already exist, inspect your dependencies graph")
+                var current = context.singletons[key] as! ObjectType
+                let currentPointer = withUnsafePointer(to: &current, { unsafeBitCast($0.pointee, to: Int.self) })
+                let resultPointer = withUnsafePointer(to: &result, { unsafeBitCast($0.pointee, to: Int.self) })
+                
+                if currentPointer != resultPointer {
+                    fatalError("Singleton already exist, inspect your dependencies graph")
+                }
             }
         }
         
