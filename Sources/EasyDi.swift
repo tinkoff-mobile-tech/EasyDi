@@ -24,6 +24,9 @@ struct WeakSingletonWrapper {
     weak var instance: AnyObject?
 }
 
+// For handle fatalError calls in tests
+var fatalError = Swift.fatalError
+
 /// This class is used to join assembly instances into separated shared group.
 ///
 /// All assemblies with one context shares object graph stack.
@@ -355,7 +358,7 @@ open class Assembly: AssemblyInternal {
         definitionClosure: DefinitionClosure<ObjectType>? = nil) -> ResultType {
         
         guard let context = self.context else {
-            fatalError("Associated context doesn't exists anymore")
+            fatalError("Associated context doesn't exists anymore", #file, #line)
         }
         
         context.locker.lock(); defer { context.locker.unlock() }
@@ -371,7 +374,7 @@ open class Assembly: AssemblyInternal {
             
             let substitutionObject = substitutionClosure()
             guard let object = substitutionObject as? ResultType else {
-                fatalError("Expected type: \(ResultType.self), received: \(type(of: substitutionObject))")
+                fatalError("Expected type: \(ResultType.self), received: \(type(of: substitutionObject))", #file, #line)
             }
             return object
             
@@ -396,7 +399,7 @@ open class Assembly: AssemblyInternal {
             
             context.objectGraphStackDepth += 1
             guard var object = definition.initObject() else {
-                fatalError("Failed to initialize object")
+                fatalError("Failed to initialize object", #file, #line)
             }
             context.objectGraphStackDepth -= 1
             
@@ -426,7 +429,7 @@ open class Assembly: AssemblyInternal {
                 let resultPointer = withUnsafePointer(to: &result, { unsafeBitCast($0.pointee, to: Int.self) })
                 
                 if currentPointer != resultPointer {
-                    fatalError("Singleton already exist, inspect your dependencies graph")
+                    fatalError("Singleton already exist, inspect your dependencies graph", #file, #line)
                 }
             }
         }
@@ -441,7 +444,7 @@ open class Assembly: AssemblyInternal {
         }
         
         guard let finalResult = result as? ResultType else {
-            fatalError("Failed to build result object. Expected \(ResultType.self) received: \(result)")
+            fatalError("Failed to build result object. Expected \(ResultType.self) received: \(result)", #file, #line)
         }
         
         return finalResult
@@ -469,7 +472,7 @@ public final class Definition<ObjectType: InjectableObject>: DefinitionInternal 
     func injectObject(object: InjectableObject) -> InjectableObject {
         
         guard let injectableObject = object as? ObjectType else {
-            fatalError()
+            fatalError("Failed to build result object. Expected \(ObjectType.self) received: \(object)", #file, #line)
         }
         
         guard let actualInjectClosure = self.injectClosure else {
