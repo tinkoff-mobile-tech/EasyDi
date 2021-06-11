@@ -36,32 +36,36 @@ fileprivate class TestAssembly: Assembly {
 
 final class Test_SingletonDuplication: XCTestCase {
     func testSingletonDuplication() {
+        NSException.test_swizzleRaise()
+        
         let context = DIContext()
         let assembly = TestAssembly.instance(from: context)
         
-        let error = FalatErrorHandler(test: self).catchFatalError {
-            let _ = assembly.objectA
-            let _ = assembly.objectB
-        }
-        XCTAssertEqual(error, "Singleton already exist, inspect your dependencies graph")
+        let _ = assembly.objectA
+        let _ = assembly.objectB
+        
+        XCTAssertEqual(NSException.last?.reason, "Singleton already exist, inspect your dependencies graph")
+        NSException.last = nil
     }
 }
 
-private struct FalatErrorHandler {
-    let test: XCTestCase
+extension NSException {
+    static var last: NSException?
+    static var alreadySwizzled = false
     
-    func catchFatalError(handler: @escaping () -> Void) -> String? {
-        let expectation = test.expectation(description: "fatal_error")
-        var result: String?
-        EasyDi.fatalError = { message, _, _ in
-            result = message()
-            expectation.fulfill()
-            while (true) { RunLoop.current.run() }
-        }
+    static func test_swizzleRaise() {
+        guard !alreadySwizzled else { return }
         
-        DispatchQueue.global(qos: .background).async(execute: handler)
-        test.waitForExpectations(timeout: 0.1, handler: nil)
-        EasyDi.fatalError = Swift.fatalError
-        return result
+        let origin = class_getInstanceMethod(NSException.self, NSSelectorFromString("raise"))
+        let new = class_getInstanceMethod(NSException.self, NSSelectorFromString("test_raise"))
+        
+        if let origin = origin, let new = new {
+            method_exchangeImplementations(origin, new)
+            alreadySwizzled = true
+        }
+    }
+    
+    @objc func test_raise() {
+        NSException.last = self
     }
 }

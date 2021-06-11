@@ -24,9 +24,6 @@ struct WeakSingletonWrapper {
     weak var instance: AnyObject?
 }
 
-// For handle fatalError calls in tests
-var fatalError = Swift.fatalError
-
 /// This class is used to join assembly instances into separated shared group.
 ///
 /// All assemblies with one context shares object graph stack.
@@ -358,7 +355,7 @@ open class Assembly: AssemblyInternal {
         definitionClosure: DefinitionClosure<ObjectType>? = nil) -> ResultType {
         
         guard let context = self.context else {
-            fatalError("Associated context doesn't exists anymore", #file, #line)
+            fatalError("Associated context doesn't exists anymore")
         }
         
         context.locker.lock(); defer { context.locker.unlock() }
@@ -374,7 +371,7 @@ open class Assembly: AssemblyInternal {
             
             let substitutionObject = substitutionClosure()
             guard let object = substitutionObject as? ResultType else {
-                fatalError("Expected type: \(ResultType.self), received: \(type(of: substitutionObject))", #file, #line)
+                fatalError("Expected type: \(ResultType.self), received: \(type(of: substitutionObject))")
             }
             return object
             
@@ -399,7 +396,7 @@ open class Assembly: AssemblyInternal {
             
             context.objectGraphStackDepth += 1
             guard var object = definition.initObject() else {
-                fatalError("Failed to initialize object", #file, #line)
+                fatalError("Failed to initialize object")
             }
             context.objectGraphStackDepth -= 1
             
@@ -428,7 +425,8 @@ open class Assembly: AssemblyInternal {
                 
                 if type(of: current) is AnyClass {
                     if unsafeBitCast(current, to: Int.self) != unsafeBitCast(result, to: Int.self) {
-                        fatalError("Singleton already exist, inspect your dependencies graph", #file, #line)
+                        let reason = "Singleton already exist, inspect your dependencies graph"
+                        NSException(name: .internalInconsistencyException, reason: reason, userInfo: nil).raise()
                     }
                 } else {
                     // Skip value types
@@ -446,7 +444,7 @@ open class Assembly: AssemblyInternal {
         }
         
         guard let finalResult = result as? ResultType else {
-            fatalError("Failed to build result object. Expected \(ResultType.self) received: \(result)", #file, #line)
+            fatalError("Failed to build result object. Expected \(ResultType.self) received: \(result)")
         }
         
         return finalResult
@@ -474,7 +472,7 @@ public final class Definition<ObjectType: InjectableObject>: DefinitionInternal 
     func injectObject(object: InjectableObject) -> InjectableObject {
         
         guard let injectableObject = object as? ObjectType else {
-            fatalError("Failed to build result object. Expected \(ObjectType.self) received: \(object)", #file, #line)
+            fatalError("Failed to build result object. Expected \(ObjectType.self) received: \(object)")
         }
         
         guard let actualInjectClosure = self.injectClosure else {
