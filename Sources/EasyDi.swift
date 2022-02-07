@@ -417,8 +417,21 @@ open class Assembly: AssemblyInternal {
         }
         
         // And save singletons
-        if context.singletons[key] == nil, scope == .lazySingleton {
-            context.singletons[key] = result
+        if scope == .lazySingleton {
+            if context.singletons[key] == nil {
+                context.singletons[key] = result
+            } else {
+                let current = context.singletons[key] as! ObjectType
+                
+                if type(of: current) is AnyClass {
+                    if unsafeBitCast(current, to: Int.self) != unsafeBitCast(result, to: Int.self) {
+                        let reason = "Singleton already exist, inspect your dependencies graph"
+                        NSException(name: .internalInconsistencyException, reason: reason, userInfo: nil).raise()
+                    }
+                } else {
+                    // Skip value types
+                }
+            }
         }
         
         if context.weakSingletons[key] == nil, scope == .weakSingleton {
@@ -459,7 +472,7 @@ public final class Definition<ObjectType: InjectableObject>: DefinitionInternal 
     func injectObject(object: InjectableObject) -> InjectableObject {
         
         guard let injectableObject = object as? ObjectType else {
-            fatalError()
+            fatalError("Failed to build result object. Expected \(ObjectType.self) received: \(object)")
         }
         
         guard let actualInjectClosure = self.injectClosure else {
