@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		283175422612173700C09104 /* Test_SingletonDuplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283175412612173700C09104 /* Test_SingletonDuplication.swift */; };
 		5C88753F236FD22500019260 /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C88753E236FD22500019260 /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift */; };
 		5C887540236FD22500019260 /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C88753E236FD22500019260 /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift */; };
 		8BEE13521F9A27C800A02331 /* EasyDi.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BEE13501F9A27C800A02331 /* EasyDi.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		283175412612173700C09104 /* Test_SingletonDuplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test_SingletonDuplication.swift; sourceTree = "<group>"; };
 		5C88753E236FD22500019260 /* Test_CrossAssemblyInjections_WeakSingletonCycle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test_CrossAssemblyInjections_WeakSingletonCycle.swift; sourceTree = "<group>"; };
 		8BEE13501F9A27C800A02331 /* EasyDi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyDi.h; sourceTree = "<group>"; };
 		8BEE13511F9A27C800A02331 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				C3614B4A1F1C8B5F00B1F4A1 /* Test_Scope.swift */,
 				C3614B4B1F1C8B5F00B1F4A1 /* Test_StructsInjection.swift */,
 				A5ABB84221A5522400C96320 /* Test_Threadsafety.swift */,
+				283175412612173700C09104 /* Test_SingletonDuplication.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				283175422612173700C09104 /* Test_SingletonDuplication.swift in Sources */,
 				C3614B571F1C8B6800B1F4A1 /* Test_Patches.swift in Sources */,
 				C3614B551F1C8B6800B1F4A1 /* Test_CrossAssemblyInjections.swift in Sources */,
 				D2B16C972123116500CF69E8 /* Test_ImplicitlyUnwrappedOptional.swift in Sources */,
